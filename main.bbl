@@ -1,0 +1,79 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{bricken2023monosemanticity}
+Bricken, T., Templeton, A., Batson, J., Chen, B., Jermyn, A., Conerly, T.,
+  Turner, N., Anil, C., Denison, C., Askell, A., et~al.: Towards
+  monosemanticity: Decomposing language models with dictionary learning.
+  Transformer Circuits Thread  (2023)
+
+\bibitem{costa2022no}
+Costa-juss{\`a}, M.R., Cross, J., {\c{C}}elebi, O., Elbayad, M., Heafield, K.,
+  Heffernan, K., Kalbassi, E., Lam, J., Licht, D., Maillard, J., et~al.: No
+  language left behind: Scaling human-centered machine translation. arXiv
+  preprint arXiv:2207.04672  (2022)
+
+\bibitem{cunningham2023sparse}
+Cunningham, H., Ewart, A., Riggs, L., Huben, R., Sharkey, L.: Sparse
+  autoencoders find highly interpretable features in language models. arXiv
+  preprint arXiv:2309.08600  (2023)
+
+\bibitem{deng2025unveiling}
+Deng, B., Wan, Y., Yang, B., Zhang, Y., Feng, F.: Unveiling language-specific
+  features in large language models via sparse autoencoders. In: Proceedings of
+  the 63rd Annual Meeting of the Association for Computational Linguistics
+  (Volume 1: Long Papers). Association for Computational Linguistics (2025)
+
+\bibitem{deng2025survey}
+Deng, D., Zou, Z., Peng, H.: A survey on sparse autoencoders: Interpreting the
+  internal mechanisms of large language models. Findings of EMNLP  (2025)
+
+\bibitem{gao2024scaling}
+Gao, L., la~Tour, T.D., Tillman, H., Goh, G., Troll, R., Radford, A.,
+  Sutskever, I., Leike, J., Wu, J.: Scaling and evaluating sparse autoencoders.
+  arXiv preprint arXiv:2406.04093  (2024)
+
+\bibitem{he2024llama}
+He, Z., Guo, W., Hao, R., et~al.: Llama scope: Extracting millions of features
+  from llama-3.1-8b with sparse autoencoders. arXiv preprint arXiv:2410.20526
+  (2024)
+
+\bibitem{karvonen2025saebench}
+Karvonen, A., et~al.: {SAEBench}: A comprehensive benchmark for sparse
+  autoencoders in language model interpretability. In: Proceedings of the 42nd
+  International Conference on Machine Learning (ICML). pp. 29223--29264. PMLR
+  (2025)
+
+\bibitem{lieberum2024gemma}
+Lieberum, T., Rajamanoharan, S., Conmy, A., Smith, L., Varma, N., Kram{\'a}r,
+  J., Bolukbasi, T., Velez-Grau, A., et~al.: Gemma scope: Open sparse
+  autoencoders everywhere all at once on gemma 2. arXiv preprint
+  arXiv:2408.05147  (2024)
+
+\bibitem{nanda2022transformerlens}
+Nanda, N., Bloom, J.: Transformerlens. GitHub repository  (2022),
+  \url{https://github.com/TransformerLensOrg/TransformerLens}
+
+\bibitem{souza2020bertimbau}
+Souza, F., Nogueira, R., Lotufo, R.: {BERT}imbau: Pretrained {BERT} models for
+  {B}razilian {P}ortuguese. In: Intelligent Systems (BRACIS). pp. 403--417.
+  Springer (2020)
+
+\bibitem{tang2024language}
+Tang, T., Luo, W., Huang, H., Zhang, D., Wang, X., Zhao, X., Wei, F., Wen,
+  J.R.: Language-specific neurons: The key to multilingual capabilities in
+  large language models. arXiv preprint arXiv:2402.16438  (2024)
+
+\bibitem{wendler2024llamas}
+Wendler, C., Veselovsky, V., Monea, G., West, R.: Do llamas work in english? on
+  the latent language of multilingual transformers. arXiv preprint
+  arXiv:2402.10588  (2024)
+
+\bibitem{wu2025axbench}
+Wu, Z., Arora, A., Geiger, A., et~al.: {AxBench}: Steering {LLMs}? even simple
+  baselines outperform sparse autoencoders. In: Proceedings of the 42nd
+  International Conference on Machine Learning (ICML). PMLR (2025)
+
+\end{thebibliography}

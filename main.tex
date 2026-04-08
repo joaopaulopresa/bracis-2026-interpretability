@@ -1,0 +1,425 @@
+% Mechanistic Interpretability of Portuguese in Multilingual LLMs
+% BRACIS 2026 — Springer LNAI format, double-anonymous
+%
+\documentclass[runningheads]{llncs}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+\urlstyle{rm}
+
+\begin{document}
+
+\title{How Do LLMs Represent Portuguese? A Cross-Family\\Mechanistic Interpretability Study via Sparse Autoencoders}
+
+\titlerunning{How Do LLMs Represent Portuguese?}
+
+% Double-anonymous: no author info
+\author{Anonymous Author(s)}
+\authorrunning{Anonymous}
+\institute{Anonymous Institution}
+
+\maketitle
+
+% ============================================================
+\begin{abstract}
+How multilingual language models internally represent individual languages remains poorly understood, yet this question matters for generation quality, bias diagnosis, and controllable generation. We investigate how two model families, Gemma-2-2B and Llama~3.1~8B, represent Portuguese by using Sparse Autoencoders (SAEs) to decompose residual stream activations into interpretable features. We train 16 custom SAEs (ReLU+L1 and TopK architectures) and use pretrained SAEs (Gemma Scope and Llama-Scope) to catalog Portuguese-specific features across multiple layers in both models. Through differential analysis against English, Spanish, French, and Italian on the FLORES-200 parallel corpus, we identify hundreds of Portuguese-specific features in each model. Causal steering experiments that amplify and suppress these features during generation reveal a qualitative difference between model families: suppressing Portuguese features in Gemma~2B redirects generation to Spanish/Catalan, while in Llama~8B it redirects to English. This suggests different internal language organizations: Gemma maintains a Romance-language continuum, whereas Llama treats English as a default representation upon which other languages are layered. We also compare ReLU+L1 and TopK SAE architectures and find that their relative performance is model-dependent rather than universal. To our knowledge, this is the first cross-family mechanistic analysis of Portuguese representation in LLMs.
+
+\keywords{Mechanistic Interpretability \and Sparse Autoencoders \and Multilingual LLMs \and Portuguese NLP \and Feature Steering}
+\end{abstract}
+
+% ============================================================
+\section{Introduction}
+\label{sec:intro}
+
+Modern large language models (LLMs) process dozens of languages simultaneously, yet little is known about how they internally represent each one. This gap has practical consequences: improving generation quality in under-represented languages, diagnosing linguistic biases, and building control mechanisms all depend on understanding the internal geometry of multilingual representations.
+
+Sparse Autoencoders (SAEs) decompose dense neural activations into sparse, interpretable features~\cite{bricken2023monosemanticity,cunningham2023sparse} and have become a standard tool in mechanistic interpretability. Pretrained SAE suites now exist for several model families, including Gemma Scope~\cite{lieberum2024gemma} and Llama-Scope~\cite{he2024llama}. Existing analyses focus primarily on English-language phenomena, however, leaving open the question of how SAEs can reveal language-specific representations in multilingual settings.
+
+We address this gap with a cross-family mechanistic interpretability study focused on Portuguese, a language spoken by over 250 million people and present in varying proportions across LLM training corpora. Our analysis spans two model families, Gemma-2-2B (26 layers, $d_\text{model}=2{,}304$) and Llama~3.1~8B (32 layers, $d_\text{model}=4{,}096$), chosen for their architectural differences, distinct training data compositions, and the availability of pretrained SAE suites. We employ both pretrained and custom-trained SAEs.
+
+We make three contributions. First, we show that suppressing Portuguese-specific SAE features produces qualitatively different fallback behaviors (Spanish/Catalan in Gemma vs.\ English in Llama), revealing different internal organizations that we term the ``Romance-language continuum'' and ``English substrate'' models. Second, we demonstrate that amplifying Portuguese features forces Portuguese output from non-Portuguese prompts while suppressing them causes language switching, establishing a causal rather than correlational link between features and language generation. Third, we show that TopK SAE performance varies across base models (79.7\% FVE on Gemma vs.\ 98.0\% on Llama) while ReLU+L1 performs consistently well ($>$99\% FVE on both), challenging universal architecture recommendations.
+
+% ============================================================
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Mechanistic Interpretability with SAEs.}
+Sparse autoencoders decompose neural activations into overcomplete, sparse representations where individual features can be more interpretable than individual neurons~\cite{cunningham2023sparse,bricken2023monosemanticity}. Gao et al.~\cite{gao2024scaling} scaled SAE training to large models and proposed evaluation metrics including Fraction of Variance Explained (FVE) and dead feature ratios. Deng et al.~\cite{deng2025survey} survey SAE methods for LLM interpretability. SAEBench~\cite{karvonen2025saebench} introduced standardized evaluation across eight metrics and over 200 SAEs, finding that proxy metrics do not reliably predict practical utility. Wu et al.~\cite{wu2025axbench} showed that for behavioral steering, simple baselines (prompting, finetuning) can outperform SAE-based methods, though SAEs retain advantages for mechanistic understanding and feature-level analysis, which is our focus. Pretrained SAE suites have been released for Gemma~\cite{lieberum2024gemma} (16k features, standard ReLU) and Llama~\cite{he2024llama} (32k features, JumpReLU activation).
+
+\paragraph{Multilingual Representations in LLMs.}
+A growing body of work investigates how multilingual models organize language-specific information. Wendler et al.~\cite{wendler2024llamas} showed that Llama~2 uses English as an internal \emph{lingua franca}, processing non-English inputs through English-centric intermediate representations. Tang et al.~\cite{tang2024language} identified language-specific neurons in multilingual transformers. Most directly relevant, Deng et al.~\cite{deng2025unveiling} concurrently proposed a monolinguality metric for SAE features and demonstrated that ablating language-specific features selectively impacts single-language performance; they also discovered synergistic feature interactions and applied findings to language steering vectors. Our work differs in three respects: (1) we compare across model families (Gemma vs.\ Llama) rather than within one family, revealing qualitatively different language organizations; (2) we focus on Portuguese, an under-studied language in interpretability research; and (3) we directly compare SAE architectures (ReLU+L1 vs.\ TopK) across models, showing model-dependent performance.
+
+\paragraph{Portuguese Language Processing.}
+Prior work on Portuguese NLP includes dedicated models like BERTimbau~\cite{souza2020bertimbau} and multilingual models fine-tuned for Portuguese tasks, but these efforts target downstream performance rather than internal mechanisms. Mechanistic interpretability of Portuguese representations in multilingual LLMs remains unexplored. Our study provides the first systematic catalog of Portuguese-specific features discovered through SAE decomposition, with causal validation via steering experiments.
+
+\paragraph{Feature Steering.}
+Bricken et al.~\cite{bricken2023monosemanticity} introduced the idea of using SAE features for causal intervention during generation, showing that clamping individual features can steer model behavior. We extend this technique to multilingual settings, where steering reveals not just the causal role of individual features but the structure of the model's language space: removing one language's features exposes how languages relate to each other internally.
+
+% ============================================================
+\section{Methodology}
+\label{sec:method}
+
+\subsection{Models and Data}
+
+We analyze two model families (Table~\ref{tab:models}), chosen for their architectural differences and availability of pretrained SAEs.
+
+\begin{table}[t]
+\centering
+\caption{Base models and pretrained SAEs used in this study.}
+\label{tab:models}
+\begin{tabular}{lccccl}
+\toprule
+\textbf{Model} & \textbf{Params} & \textbf{Layers} & $d_\text{model}$ & \textbf{SAE $d_\text{sae}$} & \textbf{SAE Activation} \\
+\midrule
+Gemma-2-2B & 2B & 26 & 2,304 & 16,384 & ReLU \\
+Llama 3.1 8B & 8B & 32 & 4,096 & 32,768 & JumpReLU \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For multilingual evaluation, we use FLORES-200~\cite{costa2022no} parallel sentences in five languages: Portuguese (PT), English (EN), Spanish (ES), French (FR), and Italian (IT), with 1,012 sentence pairs per language. Because FLORES provides parallel translations, differential activation patterns reflect linguistic rather than semantic differences.
+
+For SAE training data, we use Portuguese Wikipedia (${\sim}$2M tokens per model), tokenized independently with each model's native tokenizer (SentencePiece for Llama, custom BPE for Gemma). This ensures activations reflect each model's native tokenization rather than an imposed external scheme. Residual stream activations are extracted at selected layers using TransformerLens~\cite{nanda2022transformerlens} and stored as float16 tensors. For Llama~8B (${\sim}$16~GB in float16), batch sizes are reduced to 4 (vs.\ 16 for Gemma) to fit within 24~GB VRAM.
+
+We also analyze Gemma-2-9B (42 layers, $d_\text{model}=3{,}584$) for within-family cross-scale comparison, using raw neuron activations rather than SAE features (Gemma Scope SAEs are not available for the 9B model at the time of this study). This comparison helps disentangle model-family effects from scale effects.
+
+\subsection{Sparse Autoencoder Architectures}
+
+We compare two SAE architectures, each trained on layer-10 residual stream activations from Portuguese Wikipedia:
+
+\paragraph{ReLU+L1.} The encoder maps an input activation $\mathbf{x} \in \mathbb{R}^{d}$ to a sparse code $\mathbf{f} = \text{ReLU}(W_\text{enc}(\mathbf{x} - \mathbf{b}_\text{pre}) + \mathbf{b}_\text{enc}) \in \mathbb{R}^{d_\text{sae}}$, which the decoder reconstructs as $\hat{\mathbf{x}} = W_\text{dec}\mathbf{f}$. Training minimizes:
+\begin{equation}
+\mathcal{L}_{\text{ReLU}} = \|\mathbf{x} - \hat{\mathbf{x}}\|_2^2 + \lambda \|\mathbf{f}\|_1
+\label{eq:relu_loss}
+\end{equation}
+with decoder columns normalized to unit norm at each step.
+
+\paragraph{TopK.} Same encoder-decoder architecture, but enforces exact sparsity by retaining only the top-$k$ encoder activations (applying ReLU to them) and zeroing the rest. The loss is MSE only:
+\begin{equation}
+\mathcal{L}_{\text{TopK}} = \|\mathbf{x} - \hat{\mathbf{x}}\|_2^2
+\label{eq:topk_loss}
+\end{equation}
+since sparsity ($L0 = k$ exactly) is enforced structurally rather than via penalty.
+
+For each base model, we train 8 SAE configurations (Table~\ref{tab:sae_configs}), totaling 16 custom SAEs. All SAEs are trained for 1 epoch with Adam (lr=$3 \times 10^{-4}$) and batch size 4,096 (Gemma) or 2,048 (Llama, due to larger $d_\text{model}$).
+
+\begin{table}[t]
+\centering
+\caption{Custom SAE training configurations (per model).}
+\label{tab:sae_configs}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Architecture} & $d_\text{sae}$ & \textbf{Sparsity parameter} \\
+\midrule
+ReLU+L1 & 4,096 / 16,384 & $\lambda \in \{5 \times 10^{-4},\; 10^{-4}\}$ \\
+TopK & 4,096 / 16,384 & $k \in \{32,\; 64\}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Differential Analysis}
+\label{sec:differential}
+
+To identify Portuguese-specific features, we compute a differential activation score. For each SAE feature $i$, we first compute the mean activation $\bar{a}_i^{l}$ across all FLORES tokens in language $l$. The differential score is:
+\begin{equation}
+s_i = \frac{\bar{a}_i^{\text{PT}} - \frac{1}{|\mathcal{L}'|}\sum_{l \in \mathcal{L}'}\bar{a}_i^{l}}{\sigma_i}
+\label{eq:diff}
+\end{equation}
+where $\mathcal{L}' = \{\text{EN, ES, FR, IT}\}$ and $\sigma_i = \text{std}(\{\bar{a}_i^{l}\}_{l \in \mathcal{L}})$ normalizes by cross-language variability. Features with $s_i > 2$ are considered \emph{strongly Portuguese-specific}: their Portuguese activation is more than 2 standard deviations above the cross-language mean.
+
+We apply this analysis at 6 layers per model: layers 0, 5, 10, 15, 20, 25 for Gemma~2B; layers 0, 5, 10, 16, 21, 26 for Llama~8B (selected at approximately equivalent relative positions).
+
+\subsection{Steering Experiments}
+
+We perform causal interventions by hooking into the model's forward pass at layer 10 and modifying SAE-encoded features:
+
+\paragraph{Amplification.} We encode the residual activation through the SAE, multiply the top-20 Portuguese-specific features by factor $\alpha \in \{1, 2, 5, 10\}$, decode back, and replace the original activation. This tests whether increasing PT feature magnitudes forces Portuguese generation.
+
+\paragraph{Suppression.} Same procedure, but the top-20 Portuguese features are set to zero. This tests whether removing PT features causes language switching and, in particular, which language the model defaults to.
+
+For Gemma~2B we use Gemma Scope (layer 10, 16k features); for Llama~8B we use Llama-Scope (layer 10, 32k features, JumpReLU). We test on 10 prompts per language (PT, EN, ES, FR), generating 50 tokens with temperature 0.7.
+
+% ============================================================
+\section{Results}
+\label{sec:results}
+
+\subsection{SAE Reconstruction Quality}
+\label{sec:reconstruction}
+
+Table~\ref{tab:reconstruction} presents reconstruction metrics for the best configuration of each architecture on each model. Figure~\ref{fig:pareto} shows the full Pareto frontier for all 16 SAE configurations.
+
+\begin{table}[t]
+\centering
+\caption{Best SAE per architecture per model (evaluated on FLORES PT activations, layer 10). FVE = Fraction of Variance Explained. Dead = fraction of features never activated.}
+\label{tab:reconstruction}
+\begin{tabular}{llrrrr}
+\toprule
+\textbf{Model} & \textbf{Architecture} & \textbf{FVE (\%)} & \textbf{L0} & \textbf{MSE} & \textbf{Dead (\%)} \\
+\midrule
+\multirow{2}{*}{Gemma 2B} & ReLU+L1 ($d$=4k, $\lambda$=1e-4) & 99.19 & 4,040 & 0.063 & 0.0 \\
+ & TopK ($d$=16k, $k$=64) & 79.65 & 64 & 1.578 & 35.3 \\
+\midrule
+\multirow{2}{*}{Llama 8B} & ReLU+L1 ($d$=16k, $\lambda$=1e-4) & \textbf{99.83} & 7,684 & 0.001 & 1.1 \\
+ & TopK ($d$=16k, $k$=64) & 98.01 & 64 & 0.009 & 31.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{figures/pareto_gemma.png}
+    \caption{Gemma 2B}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{figures/pareto_llama.png}
+    \caption{Llama 3.1 8B}
+\end{subfigure}
+\caption{Pareto frontier: reconstruction loss (MSE) vs.\ sparsity (L0) for all 8 SAE configurations per model. Blue circles = ReLU+L1; orange triangles = TopK.}
+\label{fig:pareto}
+\end{figure}
+
+The clearest pattern is the model-dependence of TopK performance. On Gemma~2B, TopK achieves at most 79.7\% FVE with 35.3\% dead features. On Llama~8B, the same architecture reaches 98.0\% FVE, though still below ReLU+L1, and dead features remain high (31.3\%). ReLU+L1 achieves $>$99\% FVE on both models (99.2\% and 99.8\%), making it the more robust choice. The TopK gap (79.7\% vs.\ 98.0\%) may stem from differences in activation structure: Llama~8B's larger $d_\text{model}$ (4,096 vs.\ 2,304) may produce activations that are easier to compress with exact-$k$ sparsity.
+
+\subsection{Language Information Preservation}
+
+Linear probing (logistic regression, 5-fold CV) on mean-pooled layer-10 activations for 5-way language classification yields near-perfect accuracy for both models (Table~\ref{tab:probing}), confirming that language identity is linearly separable in the residual stream and that SAE encoding preserves this information.
+
+\begin{table}[t]
+\centering
+\caption{Language classification accuracy (5-fold CV, 1,012 samples per language). The best custom SAE (by FVE) is used for SAE feature probing.}
+\label{tab:probing}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Representation} & \textbf{Gemma 2B} & \textbf{Llama 8B} \\
+\midrule
+Raw activations ($d_\text{model}$) & 99.94\% $\pm$ 0.12 & 99.98\% $\pm$ 0.04 \\
+SAE features ($d_\text{sae}$) & 99.98\% $\pm$ 0.04 & 99.88\% $\pm$ 0.15 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All accuracies exceed 99.8\%, meaning a simple linear classifier can distinguish languages from a single layer's activations. SAE features achieve comparable accuracy to raw activations despite lossy compression, confirming that the SAE decomposition retains language-relevant information.
+
+\subsection{Portuguese-Specific Features Across Layers}
+\label{sec:features}
+
+Differential analysis (Eq.~\ref{eq:diff}) with pretrained SAEs identifies strongly Portuguese-specific features ($s_i > 2$) across all analyzed layers in both models (Table~\ref{tab:features}).
+
+\begin{table}[t]
+\centering
+\caption{Strongly PT-specific features ($s > 2$) per layer using pretrained SAEs. Llama counts use padding-masked analysis. The score has a theoretical ceiling of $\sqrt{5} \approx 2.236$.}
+\label{tab:features}
+\begin{tabular}{lccccccc}
+\toprule
+\textbf{Model (SAE)} & \textbf{L0} & \textbf{L5} & \textbf{L10} & \textbf{L15/16} & \textbf{L20/21} & \textbf{L25/26} & \textbf{Total} \\
+\midrule
+Gemma 2B (16k) & 625 & 320 & 402 & 263 & 253 & 460 & 2,323 \\
+Llama 8B (32k) & 698 & 675 & 747 & 646 & 593 & 452 & 3,811 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Both models contain thousands of strongly PT-specific features distributed across all layers. Normalizing for SAE dictionary size yields comparable densities: Gemma has 2,323/16,384 = 14.2\%, while Llama has 3,811/32,768 = 11.6\%. The layer-wise distributions differ. Gemma~2B concentrates features at layers~0 (625) and~25 (460), the input and output boundaries, while Llama~8B shows a monotonic decrease from layer~0 (698) to layer~26 (452), suggesting that language-specific information is most prominent in early layers and is progressively absorbed into more abstract representations.
+
+Manual inspection of top-activating tokens for the highest-scoring features in Gemma~2B reveals interpretable categories (Table~\ref{tab:feature_categories}).
+
+\begin{table}[t]
+\centering
+\caption{Categories of Portuguese-specific features in Gemma~2B (120 features across 6 layers, categorized by top-activating tokens).}
+\label{tab:feature_categories}
+\begin{tabular}{llll}
+\toprule
+\textbf{Category} & \textbf{Count} & \textbf{Example tokens} & \textbf{Dominant layers} \\
+\midrule
+Morphological & 24 & ``-\c{c}\~ao'', ``-sivo'', ``\^enio'' & L5--L15 \\
+Syntactic & 18 & ``do'', ``pelo'', ``em'', ``uma'' & L0, L20--L25 \\
+Lexical & 4 & ``Maia'', ``Oliveira'' & L15--L25 \\
+Semantic & 1 & ``brasileiro'' & L15 \\
+Shared Romance & 1 & (active for multiple langs) & L10 \\
+Unclassified & 72 & (no clear dominant token) & All \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A layer-wise gradient emerges: early layers (L0) predominantly capture syntactic features (function words, articles), middle layers (L5--L15) capture morphological patterns (Portuguese-specific suffixes), and later layers (L20--L25) capture more complex syntactic constructions (contractions, preposition usage).
+
+For Llama~8B, we initially observed that many top features activated on padding tokens, an artifact of differential tokenization lengths across languages (PT averages 40.5 tokens/sentence vs.\ EN's 27.8, creating different padding patterns). We corrected this by masking padding positions before computing mean activations, reducing the total strongly PT-specific features from 4,143 to 3,811 ($-8\%$). Table~\ref{tab:llama_features} shows the corrected top-20 features.
+
+\begin{table}[t]
+\centering
+\caption{Top-20 Llama-Scope PT features (layer 10) after padding masking. Features are categorized by their top-activating tokens on genuine (non-padding) Portuguese text.}
+\label{tab:llama_features}
+\footnotesize
+\begin{tabular}{lllp{5cm}}
+\toprule
+\textbf{Category} & \textbf{Count} & \textbf{Example tokens} & \textbf{Note} \\
+\midrule
+Syntactic & 14 & ``de'', ``os'', ``a'', ``um'', ``que'', ``com'' & Prepositions, articles, conjunctions \\
+Morphological & 4 & ``s\~ao'', ``\^a'', ``-icos'', ``-ode'' & PT verb forms, suffixes \\
+Mixed/subword & 2 & ``ab'', ``di'' & Subword fragments in PT contexts \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+After masking, the top features are genuinely linguistic: syntactic features (prepositions ``de''/``com'', articles ``a''/``os''/``um'') dominate, with morphological features (``s\~ao'', ``\^a'', suffixes ``-icos'') also present. This mirrors Gemma~2B's layer-10 features, where syntactic and morphological categories also predominate. The padding masking correction matters methodologically: differential analysis on padded sequences can produce spurious results when languages have different tokenization lengths, a pitfall not previously documented in SAE interpretability literature.
+
+\subsection{Causal Steering: The Central Finding}
+\label{sec:steering}
+
+Our central result is the divergent fallback behavior when Portuguese features are suppressed (Table~\ref{tab:steering}).
+
+\begin{table}[t]
+\centering
+\caption{Steering examples. \emph{Baseline}: normal generation; \emph{Suppression}: top-20 PT features set to zero; \emph{Amplification}: top-20 PT features multiplied by 10. Detected fallback language in \textbf{bold}.}
+\label{tab:steering}
+\footnotesize
+\begin{tabular}{p{2.0cm}lp{4.2cm}p{4.2cm}}
+\toprule
+\textbf{Prompt} & \textbf{Mode} & \textbf{Gemma 2B output} & \textbf{Llama 8B output} \\
+\midrule
+\multirow{3}{2.0cm}{\raggedright\emph{A capital do Brasil \'e}} & Base & palco de diversos eventos e festivais... & o centro mais importante do pa\'is... \\
+\cmidrule{2-4}
+ & Suppr. & la una metr\`opolis ambduna de les fa uns centenars... \textbf{(Catalan)} & a capital, 1 capital, is 1 capital... \textbf{(English)} \\
+\cmidrule{2-4}
+ & Amplif. & uma das m\'etroas mais importantes da metropode... \textbf{(PT, degraded)} & que que que u u u... \textbf{(collapsed)} \\
+\midrule
+\multirow{2}{2.0cm}{\raggedright\emph{O rio mais longo do mundo \'e}} & Suppr. & el f\'erriable del continente... \textbf{(Spanish)} & the longest the most long the... \textbf{(English)} \\
+\cmidrule{2-4}
+ & Amplif. & o Brasil, e sua extens\~ao \'e de 235 mil quil\^ometros... \textbf{(PT)} & mais do mais mais... \textbf{(collapsed)} \\
+\midrule
+\multirow{2}{2.0cm}{\raggedright\emph{A l\'ingua portuguesa \'e falada em}} & Suppr. & todos os continentes, enrapapeando la lengua espa\~nola... \textbf{(Spanish)} & il...?...?...? \textbf{(degenerate)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Gemma 2B: Romance-Language Continuum.} Suppressing Portuguese features consistently redirects generation to Spanish or Catalan, closely related Romance languages. The model appears to organize languages in a continuous space where typologically related languages are neighbors; removing Portuguese-specific features causes the model to fall back to the nearest Romance representation. In the third example, the Portuguese prompt about the Portuguese language continues in Spanish with thematically related content.
+
+\paragraph{Llama 8B: English Substrate.} Suppressing Portuguese features redirects generation to English. This aligns with the ``English pivot'' hypothesis of Wendler et al.~\cite{wendler2024llamas}: Llama models appear to build non-English representations as language-specific overlays on top of English-centric features. Stripping the Portuguese overlay reveals the underlying English default.
+
+\paragraph{Amplification.} In Gemma~2B, factor-10 amplification on Portuguese prompts produces Portuguese output with morphological degradation but preserved language identity. In Llama~8B, the same factor causes textual collapse (Figure~\ref{fig:steering_comparison}). Lower factors (2.0 and 3.0) on Llama yield intermediate results: factor-2 amplification on ``The capital of France is'' produces ``a France in France is in France. The capital of France is in France...,'' repetitive but recognizably influenced toward French/Portuguese geography. Even at factor 3.0, non-Portuguese prompts do not switch cleanly to Portuguese. This asymmetry reflects the different SAE architectures: Llama-Scope's 32k JumpReLU features have larger individual magnitudes, making multiplicative amplification disproportionately disruptive. At factor~3.0, individual feature~2142 generates the Portuguese word ``trabalho do'' (``work of''), confirming its linguistic nature despite the noise at higher factors.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/steering_comparison.png}
+\caption{Effect of PT feature amplification on generation across models. Gemma~2B maintains generation coherence at high amplification factors, while Llama~8B exhibits progressive textual collapse.}
+\label{fig:steering_comparison}
+\end{figure}
+
+\paragraph{Individual Feature Analysis.}
+Amplifying individual features in Llama~8B (factor 5.0) reveals interpretable specializations (Table~\ref{tab:individual}).
+
+\begin{table}[t]
+\centering
+\caption{Individual feature steering in Llama 8B (factor 5.0, prompt: ``A capital do Brasil \'e''). Baseline: ``uma das capitais brasileiras mais belas...''}
+\label{tab:individual}
+\footnotesize
+\begin{tabular}{cp{7.5cm}l}
+\toprule
+\textbf{Feature} & \textbf{Generated continuation} & \textbf{Interpretation} \\
+\midrule
+16811 & Portugal Portugal Portugal Brazil Portuguese... & Lusophone entity \\
+18397 & a capital do Brazil is the capital of Britain countries... & PT-EN bridge \\
+16096 & BC Brazil is BC Brazil is is is... & Brazil-associated \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Feature 16811 stands out: when amplified, it produces repetitions exclusively from the set \{Portugal, Portuguese, Brazil\}, suggesting it encodes a ``Lusophone world'' concept. Feature 18397 generates bilingual PT-EN output, suggesting it functions as a cross-lingual bridge feature.
+
+\subsection{Cross-Scale Analysis: Gemma 2B vs 9B}
+\label{sec:crossscale}
+
+To disentangle family effects from scale effects, we also analyzed Gemma-2-9B (42 layers, $d_\text{model}=3{,}584$) using raw neuron activations (Table~\ref{tab:crossscale}).
+
+\begin{table}[t]
+\centering
+\caption{Cross-scale comparison within the Gemma family. Cosine similarity between mean PT and ES/EN activations, and count of strongly PT-specific neurons ($s > 2$).}
+\label{tab:crossscale}
+\begin{tabular}{ccccc}
+\toprule
+\textbf{9B Layer} & \textbf{Rel.\ pos.} & \textbf{cos(PT,ES)} & \textbf{cos(PT,EN)} & \textbf{$n_{s>2}$} \\
+\midrule
+0  & 0\% & 0.9998 & 0.9995 & 9 \\
+8  & 20\% & 0.9996 & 0.9990 & 18 \\
+16 & 39\% & 0.9998 & 0.9995 & 11 \\
+24 & 59\% & 0.9995 & 0.9990 & 25 \\
+32 & 78\% & 0.9983 & 0.9966 & 22 \\
+\textbf{41} & \textbf{100\%} & \textbf{0.9883} & \textbf{0.9815} & \textbf{41} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The 9B model shows progressive linguistic differentiation (Figure~\ref{fig:crossscale}): cosine similarity between Portuguese and Spanish mean activations drops monotonically from 0.9998 (layer 0) to 0.9883 (layer 41). The PT-EN drop is steeper still (0.9995 $\to$ 0.9815). The number of strongly PT-specific neurons increases from 9 (layer 0) to 41 (layer 41). The 2B model, by contrast, shows near-uniform scores across layers (all $\sim$2.236). This suggests that larger models develop finer language separation in deeper layers, a property not visible at the 2B scale.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/crossscale_similarity.png}
+\caption{Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.}
+\label{fig:crossscale}
+\end{figure}
+
+% ============================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Why Do Models Organize Languages Differently?}
+
+Our central finding, divergent fallback languages upon feature suppression, suggests two distinct paradigms for multilingual representation. We hypothesize that these differences stem primarily from training data composition.
+
+The Romance-language continuum observed in Gemma~2B organizes Romance languages (those descended from Latin: Portuguese, Spanish, French, Italian, Catalan) in a continuous representational space where typological proximity maps to representational proximity. When Portuguese features are suppressed, the prompt ``A l\'ingua portuguesa \'e falada em'' continues coherently in Spanish: \emph{``todos os continentes, enrapapeando la lengua espa\~nola, la misma lengua que es fa...''}. The model not only switches to Spanish but continues the topic of language distribution. This suggests deep structural sharing between Romance representations in Gemma. Google's Gemma models use curated multilingual training data with deliberate language balancing~\cite{lieberum2024gemma}, which may encourage the model to learn shared Romance structure rather than treating each language independently.
+
+In Llama~8B the pattern is different. The same suppression experiment on ``O rio mais longo do mundo \'e'' produces \emph{``the longest the most long the is the more long the''}, a degraded but recognizably English translation of the prompt's meaning. This is consistent with Wendler et al.~\cite{wendler2024llamas}'s finding that Llama~2 uses English as an internal \emph{lingua franca}: non-English inputs are processed through English-centric intermediate representations. Meta's Llama models are trained on predominantly English data (reportedly $>$89\% English in Llama~2), which would naturally lead to English as the ``base layer'' upon which other language capabilities are added.
+
+Individual feature analysis reinforces this contrast. In Llama~8B, feature~18397 produces bilingual output when amplified: \emph{``a capital do Brazil is the capital of Britain countries''}, a Portuguese-English hybrid that suggests this feature functions as a cross-lingual bridge, translating between the English substrate and the Portuguese overlay. No analogous bridge features were observed in Gemma, consistent with the Romance-language continuum model where languages share representational space rather than translating between layers.
+
+\subsection{Why Does TopK Fail on Gemma but Succeed on Llama?}
+
+The TopK performance gap (79.7\% FVE on Gemma~2B vs.\ 98.0\% on Llama~8B) deserves explanation, since the same hyperparameters ($d_\text{sae}$, $k$) were used on both models.
+
+We hypothesize this reflects differences in activation intrinsic dimensionality. Llama~8B has $d_\text{model}=4{,}096$, nearly twice Gemma's 2,304, providing a higher-dimensional space where activations may be more uniformly distributed. TopK enforces hard sparsity ($L0=k$ exactly), which works well when the ``true'' sparse representation naturally concentrates energy in few dimensions but fails when activations are diffused across many dimensions simultaneously. In Gemma~2B, the lower dimensionality may force more superposition, making hard $k$-selection destructive. The L1 penalty of ReLU+L1, by contrast, adaptively selects the sparsity level per sample.
+
+Supporting this interpretation, TopK on Gemma produces 35.3\% dead features (features that never activate), suggesting that many dictionary elements are redundant. On Llama, TopK dead feature rates are lower but still high (31.3\% for the best configuration), while ReLU+L1 dead rates are near zero ($<$1.2\%) on both models. ReLU+L1 achieves $>$99\% FVE on both models because its soft sparsity adapts to the activation structure. The practical implication is that TopK should not be assumed to generalize across models. Practitioners should validate SAE architectures on their specific base model.
+
+These two paradigms have practical implications. The Romance-language continuum may allow finer-grained language steering by ``sliding'' between related languages, while the English substrate raises concerns about English-centric biases propagating to all other languages. More broadly, our findings suggest that training data proportions shape internal language architecture, not just downstream performance.
+
+\subsection{Threats to Validity}
+\label{sec:limitations}
+
+Several threats to validity affect our findings.
+
+\paragraph{Confounded variables (internal validity).} The two models differ simultaneously in family, size (2B vs.\ 8B), architecture (multi-query vs.\ grouped-query attention), and training data. The observed differences in fallback behavior could stem from any combination of these factors. Our within-family cross-scale analysis (Gemma~2B vs.\ 9B) partially mitigates this for scale effects, but a fully controlled comparison would require same-size models from different families (e.g., Gemma~8B vs.\ Llama~8B).
+
+\paragraph{SAE comparability (construct validity).} The pretrained SAEs differ in activation function (ReLU vs.\ JumpReLU), dimensionality (16k vs.\ 32k features), and training procedure. Although normalizing for dictionary size yields comparable densities (Gemma: 2,323/16k = 14.2\%; Llama: 3,811/32k = 11.6\%), the different activation functions and training procedures make direct feature-level comparison unreliable. Our conclusions rely on \emph{qualitative} differences (fallback language, feature categories) rather than absolute counts.
+
+\paragraph{Steering artifacts (internal validity).} Amplification at factor 10 causes textual collapse in Llama~8B, producing repetitions and degenerate output rather than coherent Portuguese. This limits the symmetry of our causal analysis: we can cleanly demonstrate suppression effects in both models but clean amplification only in Gemma. The collapse may stem from Llama-Scope's JumpReLU features having higher individual magnitudes, making multiplicative amplification disproportionately disruptive. Lower factors (2--5) or additive steering could yield cleaner results.
+
+\paragraph{Evaluation scope (external validity).} We analyze only 6 of 26--32 layers per model, only 5 languages (all European, 4 Romance), and use a single evaluation corpus (FLORES-200, 1,012 samples). The restriction to European languages may inflate Portuguese ``specificity'' scores: features that distinguish PT from EN/ES/FR/IT might not distinguish it from, e.g., Galician or Mirandese. FLORES consists of professionally translated news-domain sentences, and other genres (social media, literature) may activate different features.
+
+\paragraph{Feature interpretability (construct validity).} 60\% of Gemma~2B features remained ``unclassified'' after manual inspection. For Llama~8B, we discovered and corrected a padding artifact: language-specific tokenization lengths create spurious differential scores in padding regions. Our corrected padding-masked analysis (Section~\ref{sec:features}) reduces the artifact, but the correction assumes that padding tokens carry no genuine linguistic signal, an assumption that may not hold for all models. Automated interpretation via LLMs could improve feature coverage but introduces its own biases.
+
+\paragraph{Reproducibility.} Steering experiments use temperature-based sampling ($T=0.7$), introducing stochasticity in generation. LLM outputs are sensitive to sampling parameters, and a different temperature or seed could produce different specific examples. Our qualitative conclusions (fallback language identity) are robust across prompts, but specific generated texts should not be over-interpreted.
+
+\paragraph{Future work} should extend to additional model families (Mistral, Qwen) and same-size comparisons to test generality, include typologically diverse languages (e.g., Japanese, Arabic), and investigate Portuguese dialect variation (PT-BR vs.\ PT-PT).
+
+% ============================================================
+\section{Conclusion}
+
+We presented the first cross-family mechanistic interpretability study of Portuguese representation in multilingual LLMs. By applying sparse autoencoders to Gemma-2-2B and Llama~3.1~8B, we identified Portuguese-specific features in both models across multiple layers and demonstrated their causal role through steering experiments. Suppressing Portuguese features produces English fallback in Llama but Romance-language fallback in Gemma, revealing qualitatively different internal language organizations that we term the ``English substrate'' and ``Romance-language continuum'' models. This distinction has practical implications for multilingual model control, bias auditing, and our understanding of how training data composition shapes internal representations. Our cross-model SAE comparison also shows that architecture recommendations (ReLU+L1 vs.\ TopK) do not transfer reliably across base models, and practitioners should validate on their specific use case.
+
+\paragraph{Reproducibility.} All code, trained SAE checkpoints, extracted activations, and experimental results are publicly available at \url{https://anonymous.4open.science/r/mecanistic-interp-pt}\footnote{Anonymous repository for double-blind review. The non-anonymous version with full commit history will be released upon acceptance.}. The repository includes the complete pipeline, from data extraction to SAE training, evaluation, differential analysis, and steering experiments, for both Gemma~2B and Llama~8B models.
+
+% ============================================================
+\bibliographystyle{splncs04}
+\bibliography{references}
+
+\end{document}
