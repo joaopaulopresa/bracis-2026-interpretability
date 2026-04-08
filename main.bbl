@@ -3,6 +3,20 @@
 \providecommand{\urlprefix}{URL }
 \providecommand{\doi}[1]{https://doi.org/#1}
 
+\bibitem{causal_lang_control2025}
+Anonymous: Causal language control in multilingual transformers via sparse
+  feature steering. arXiv preprint arXiv:2507.13410  (2025)
+
+\bibitem{langfir2026}
+Anonymous: Langfir: Discovering sparse language-specific features from
+  monolingual data for language steering. arXiv preprint arXiv:2604.03532
+  (2026)
+
+\bibitem{sasft2026}
+Anonymous: {SASFT}: Sparse autoencoder-guided supervised finetuning to mitigate
+  unexpected code-switching in {LLMs}. In: Proceedings of the International
+  Conference on Learning Representations (ICLR) (2026)
+
 \bibitem{bricken2023monosemanticity}
 Bricken, T., Templeton, A., Batson, J., Chen, B., Jermyn, A., Conerly, T.,
   Turner, N., Anil, C., Denison, C., Askell, A., et~al.: Towards
