@@ -27,7 +27,8 @@
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:two_architectures}{{1}{2}{Two architectures of multilingualism made visible through SAE feature-suppression. \textbf {(a)}~In Gemma-2-2B, Portuguese sits inside a Romance cluster; suppressing PT-specific features redirects generation to the nearest typological neighbor (Spanish or Catalan). \textbf {(b)}~In Llama-3.1-8B, non-English languages operate as overlays on an English substrate; suppressing PT-specific features strips the Portuguese overlay and reveals the English default.\relax }{figure.caption.2}{}}
 \citation{cunningham2023sparse,bricken2023monosemanticity}
-\citation{gao2024scaling,deng2025survey}
+\citation{gao2024scaling}
+\citation{deng2025survey}
 \citation{karvonen2025saebench,wu2025axbench}
 \citation{lieberum2024gemma}
 \citation{he2024llama}
@@ -61,48 +62,46 @@
 \newlabel{sec:monolinguality}{{3.4}{5}{Monolinguality Metric}{subsection.1.3.4}{}}
 \newlabel{eq:monolinguality}{{4}{5}{Monolinguality Metric}{equation.1.3.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Steering Experiments}{5}{subsection.1.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Amplification.}{5}{section*.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Suppression.}{5}{section*.7}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Best SAE per architecture per model (evaluated on FLORES PT activations, layer 10). FVE = Fraction of Variance Explained. $L_0$ = mean number of non-zero features per activation ($\ell _0$-norm). Dead = fraction of features never activated.\relax }}{6}{table.caption.8}\protected@file@percent }
-\newlabel{tab:reconstruction}{{2}{6}{Best SAE per architecture per model (evaluated on FLORES PT activations, layer 10). FVE = Fraction of Variance Explained. $L_0$ = mean number of non-zero features per activation ($\ell _0$-norm). Dead = fraction of features never activated.\relax }{table.caption.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Pareto frontier: reconstruction loss (MSE) vs.\ sparsity ($\ell _0$-norm $L_0$) for all 8 SAE configurations per model. Blue circles = ReLU+L1; orange triangles = TopK.\relax }}{6}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:pareto}{{2}{6}{Pareto frontier: reconstruction loss (MSE) vs.\ sparsity ($\ell _0$-norm $L_0$) for all 8 SAE configurations per model. Blue circles = ReLU+L1; orange triangles = TopK.\relax }{figure.caption.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Best SAE per architecture per model (evaluated on FLORES PT activations, layer 10). FVE = Fraction of Variance Explained. $L_0$ = mean number of non-zero features per activation ($\ell _0$-norm). Dead = fraction of features never activated.\relax }}{6}{table.caption.6}\protected@file@percent }
+\newlabel{tab:reconstruction}{{2}{6}{Best SAE per architecture per model (evaluated on FLORES PT activations, layer 10). FVE = Fraction of Variance Explained. $L_0$ = mean number of non-zero features per activation ($\ell _0$-norm). Dead = fraction of features never activated.\relax }{table.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Pareto frontier: reconstruction loss (MSE) vs.\ sparsity ($\ell _0$-norm $L_0$) for all 8 SAE configurations per model. Blue circles = ReLU+L1; orange triangles = TopK.\relax }}{6}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:pareto}{{2}{6}{Pareto frontier: reconstruction loss (MSE) vs.\ sparsity ($\ell _0$-norm $L_0$) for all 8 SAE configurations per model. Blue circles = ReLU+L1; orange triangles = TopK.\relax }{figure.caption.7}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Experiments and Results}{6}{section.1.4}\protected@file@percent }
 \newlabel{sec:results}{{4}{6}{Experiments and Results}{section.1.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Reconstruction Quality}{6}{subsection.1.4.1}\protected@file@percent }
 \newlabel{sec:reconstruction}{{4.1}{6}{Reconstruction Quality}{subsection.1.4.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Language Probing}{6}{subsection.1.4.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Language classification accuracy (5-fold CV, 1,012 samples per language). The best custom SAE (by FVE) is used for SAE feature probing.\relax }}{7}{table.caption.10}\protected@file@percent }
-\newlabel{tab:probing}{{3}{7}{Language classification accuracy (5-fold CV, 1,012 samples per language). The best custom SAE (by FVE) is used for SAE feature probing.\relax }{table.caption.10}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Strongly PT-specific feature counts ($s > 2$) at each analyzed layer using pretrained SAEs (column headers indicate layer indices; Gemma 2B: layers 0, 5, 10, 15, 20, 25; Llama 8B: layers 0, 5, 10, 16, 21, 26). Llama counts use padding-masked analysis. The differential activation score has a theoretical ceiling of $\sqrt  {5} \approx 2.236$.\relax }}{7}{table.caption.11}\protected@file@percent }
-\newlabel{tab:features}{{4}{7}{Strongly PT-specific feature counts ($s > 2$) at each analyzed layer using pretrained SAEs (column headers indicate layer indices; Gemma 2B: layers 0, 5, 10, 15, 20, 25; Llama 8B: layers 0, 5, 10, 16, 21, 26). Llama counts use padding-masked analysis. The differential activation score has a theoretical ceiling of $\sqrt {5} \approx 2.236$.\relax }{table.caption.11}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Language classification accuracy (5-fold CV, 1,012 samples per language). The best custom SAE (by FVE) is used for SAE feature probing.\relax }}{7}{table.caption.8}\protected@file@percent }
+\newlabel{tab:probing}{{3}{7}{Language classification accuracy (5-fold CV, 1,012 samples per language). The best custom SAE (by FVE) is used for SAE feature probing.\relax }{table.caption.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Strongly PT-specific feature counts ($s > 2$) at each analyzed layer using pretrained SAEs (column headers indicate layer indices; Gemma 2B: layers 0, 5, 10, 15, 20, 25; Llama 8B: layers 0, 5, 10, 16, 21, 26). Llama counts use padding-masked analysis. The differential activation score has a theoretical ceiling of $\sqrt  {5} \approx 2.236$.\relax }}{7}{table.caption.9}\protected@file@percent }
+\newlabel{tab:features}{{4}{7}{Strongly PT-specific feature counts ($s > 2$) at each analyzed layer using pretrained SAEs (column headers indicate layer indices; Gemma 2B: layers 0, 5, 10, 15, 20, 25; Llama 8B: layers 0, 5, 10, 16, 21, 26). Llama counts use padding-masked analysis. The differential activation score has a theoretical ceiling of $\sqrt {5} \approx 2.236$.\relax }{table.caption.9}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Portuguese-Specific Features}{7}{subsection.1.4.3}\protected@file@percent }
 \newlabel{sec:features}{{4.3}{7}{Portuguese-Specific Features}{subsection.1.4.3}{}}
 \citation{wendler2024llamas}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Categories of Portuguese-specific features in Gemma\nobreakspace  {}2B (120 features across 6 layers, categorized by top-activating tokens).\relax }}{8}{table.caption.12}\protected@file@percent }
-\newlabel{tab:feature_categories}{{5}{8}{Categories of Portuguese-specific features in Gemma~2B (120 features across 6 layers, categorized by top-activating tokens).\relax }{table.caption.12}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Top-20 Llama-Scope PT features (layer 10) after padding masking. Features are categorized by their top-activating tokens on genuine (non-padding) Portuguese text.\relax }}{8}{table.caption.13}\protected@file@percent }
-\newlabel{tab:llama_features}{{6}{8}{Top-20 Llama-Scope PT features (layer 10) after padding masking. Features are categorized by their top-activating tokens on genuine (non-padding) Portuguese text.\relax }{table.caption.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Categories of Portuguese-specific features in Gemma\nobreakspace  {}2B (120 features across 6 layers, categorized by top-activating tokens).\relax }}{8}{table.caption.10}\protected@file@percent }
+\newlabel{tab:feature_categories}{{5}{8}{Categories of Portuguese-specific features in Gemma~2B (120 features across 6 layers, categorized by top-activating tokens).\relax }{table.caption.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Top-20 Llama-Scope PT features (layer 10) after padding masking. Features are categorized by their top-activating tokens on genuine (non-padding) Portuguese text.\relax }}{8}{table.caption.11}\protected@file@percent }
+\newlabel{tab:llama_features}{{6}{8}{Top-20 Llama-Scope PT features (layer 10) after padding masking. Features are categorized by their top-activating tokens on genuine (non-padding) Portuguese text.\relax }{table.caption.11}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Steering Results}{8}{subsection.1.4.4}\protected@file@percent }
 \newlabel{sec:steering}{{4.4}{8}{Steering Results}{subsection.1.4.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Steering examples. \emph  {Baseline}: normal generation; \emph  {Suppression}: top-20 PT features set to zero; \emph  {Amplification}: top-20 PT features multiplied by 10. Fallback-language labels (\textbf  {in bold}) were assigned by manual inspection of the generated text.\relax }}{9}{table.caption.14}\protected@file@percent }
-\newlabel{tab:steering}{{7}{9}{Steering examples. \emph {Baseline}: normal generation; \emph {Suppression}: top-20 PT features set to zero; \emph {Amplification}: top-20 PT features multiplied by 10. Fallback-language labels (\textbf {in bold}) were assigned by manual inspection of the generated text.\relax }{table.caption.14}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Steering examples. \emph  {Baseline}: normal generation; \emph  {Suppression}: top-20 PT features set to zero; \emph  {Amplification}: top-20 PT features multiplied by 10. Fallback-language labels (\textbf  {in bold}) were assigned by manual inspection of the generated text.\relax }}{9}{table.caption.12}\protected@file@percent }
+\newlabel{tab:steering}{{7}{9}{Steering examples. \emph {Baseline}: normal generation; \emph {Suppression}: top-20 PT features set to zero; \emph {Amplification}: top-20 PT features multiplied by 10. Fallback-language labels (\textbf {in bold}) were assigned by manual inspection of the generated text.\relax }{table.caption.12}{}}
 \citation{joulin2016bag}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Effect of PT feature amplification on generation across models. Gemma\nobreakspace  {}2B maintains generation coherence at high amplification factors, while Llama\nobreakspace  {}8B exhibits progressive textual collapse.\relax }}{10}{figure.caption.15}\protected@file@percent }
-\newlabel{fig:steering_comparison}{{3}{10}{Effect of PT feature amplification on generation across models. Gemma~2B maintains generation coherence at high amplification factors, while Llama~8B exhibits progressive textual collapse.\relax }{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Effect of PT feature amplification on generation across models. Gemma\nobreakspace  {}2B maintains generation coherence at high amplification factors, while Llama\nobreakspace  {}8B exhibits progressive textual collapse.\relax }}{10}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:steering_comparison}{{3}{10}{Effect of PT feature amplification on generation across models. Gemma~2B maintains generation coherence at high amplification factors, while Llama~8B exhibits progressive textual collapse.\relax }{figure.caption.13}{}}
 \citation{lieberum2024gemma}
 \citation{wendler2024llamas}
 \citation{touvron2023llama2}
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Cross-scale comparison within the Gemma family. Cosine similarity between mean PT and ES/EN activations, and count of strongly PT-specific neurons ($s > 2$, where $s$ is the differential activation score of Eq.\nobreakspace  {}\ref  {eq:diff} applied to raw neurons rather than SAE features).\relax }}{11}{table.caption.16}\protected@file@percent }
-\newlabel{tab:crossscale}{{8}{11}{Cross-scale comparison within the Gemma family. Cosine similarity between mean PT and ES/EN activations, and count of strongly PT-specific neurons ($s > 2$, where $s$ is the differential activation score of Eq.~\ref {eq:diff} applied to raw neurons rather than SAE features).\relax }{table.caption.16}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Cross-scale comparison within the Gemma family. Cosine similarity between mean PT and ES/EN activations, and count of strongly PT-specific neurons ($s > 2$, where $s$ is the differential activation score of Eq.\nobreakspace  {}\ref  {eq:diff} applied to raw neurons rather than SAE features).\relax }}{11}{table.caption.14}\protected@file@percent }
+\newlabel{tab:crossscale}{{8}{11}{Cross-scale comparison within the Gemma family. Cosine similarity between mean PT and ES/EN activations, and count of strongly PT-specific neurons ($s > 2$, where $s$ is the differential activation score of Eq.~\ref {eq:diff} applied to raw neurons rather than SAE features).\relax }{table.caption.14}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Cross-Scale Analysis}{11}{subsection.1.4.5}\protected@file@percent }
 \newlabel{sec:crossscale}{{4.5}{11}{Cross-Scale Analysis}{subsection.1.4.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{11}{section.1.5}\protected@file@percent }
 \newlabel{sec:discussion}{{5}{11}{Discussion}{section.1.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Cross-Family Language Organization}{11}{subsection.1.5.1}\protected@file@percent }
 \citation{sasft2026}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }}{12}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:crossscale}{{4}{12}{Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }}{12}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:crossscale}{{4}{12}{Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }{figure.caption.15}{}}
 \citation{causal_lang_control2025}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}TopK Performance Across Models}{13}{subsection.1.5.2}\protected@file@percent }
 \newlabel{sec:topk-gap}{{5.2}{13}{TopK Performance Across Models}{subsection.1.5.2}{}}
@@ -121,7 +120,7 @@
 \bibcite{gao2024scaling}{8}
 \bibcite{he2024llama}{9}
 \bibcite{joulin2016bag}{10}
-\@writefile{toc}{\contentsline {paragraph}{Reproducibility.}{14}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Reproducibility.}{14}{section*.16}\protected@file@percent }
 \bibcite{karvonen2025saebench}{11}
 \bibcite{kojima2024multilingual}{12}
 \bibcite{lieberum2024gemma}{13}
