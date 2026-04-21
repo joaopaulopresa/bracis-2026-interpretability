@@ -59,6 +59,11 @@ Karvonen, A., Rager, C., Lin, J., Tigges, C., Bloom, J.I., Chanin, D., Lau,
   International Conference on Machine Learning (2025),
   \url{https://openreview.net/forum?id=qrU3yNfX0d}
 
+\bibitem{kojima2024multilingual}
+Kojima, T., Gu, J., Reid, M., Matsuo, Y., Iwasawa, Y.: Multilingual large
+  language models share semantic representations across languages. In: Findings
+  of ACL (2024)
+
 \bibitem{lieberum2024gemma}
 Lieberum, T., Rajamanoharan, S., Conmy, A., Smith, L., Varma, N., Kram{\'a}r,
   J., Bolukbasi, T., Velez-Grau, A., et~al.: Gemma scope: Open sparse
