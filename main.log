@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.7.26)  8 APR 2026 08:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.7.26)  21 APR 2026 18:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -540,92 +540,120 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Overfull \hbox (2.65555pt too wide) in paragraph at lines 90--91
+Overfull \hbox (2.65555pt too wide) in paragraph at lines 93--94
 []\T1/cmr/m/n/10 For SAE train-ing data, we use Por-tuguese Wikipedia ($[]$2M t
 o-kens per model),
  []
 
-[3] [4]
-<figures/pareto_gemma.png, id=126, 722.7pt x 505.89pt>
+[3] [4] [5]
+<figures/pareto_gemma.png, id=143, 722.7pt x 505.89pt>
 File: figures/pareto_gemma.png Graphic file (type png)
 <use figures/pareto_gemma.png>
-Package pdftex.def Info: figures/pareto_gemma.png  used on input line 179.
+Package pdftex.def Info: figures/pareto_gemma.png  used on input line 193.
 (pdftex.def)             Requested size: 166.61781pt x 116.63014pt.
-<figures/pareto_llama.png, id=128, 713.064pt x 496.7358pt>
+<figures/pareto_llama.png, id=145, 713.064pt x 496.7358pt>
 File: figures/pareto_llama.png Graphic file (type png)
 <use figures/pareto_llama.png>
-Package pdftex.def Info: figures/pareto_llama.png  used on input line 184.
+Package pdftex.def Info: figures/pareto_llama.png  used on input line 198.
 (pdftex.def)             Requested size: 166.61781pt x 116.06592pt.
- [5] [6 <./figures/pareto_gemma.png> <./figures/pareto_llama.png>]
-Overfull \hbox (29.87785pt too wide) in paragraph at lines 263--272
+ [6]
+Overfull \hbox (47.1672pt too wide) in paragraph at lines 236--244
  [][] 
  []
 
-[7]
-Underfull \hbox (badness 3758) in paragraph at lines 292--292
+[7 <./figures/pareto_gemma.png> <./figures/pareto_llama.png>]
+Overfull \hbox (29.87785pt too wide) in paragraph at lines 277--286
+ [][] 
+ []
+
+
+Underfull \hbox (badness 3758) in paragraph at lines 306--306
 \T1/cmr/m/n/9 de les fa uns cen-te-nars...
  []
 
 
-Overfull \vbox (11.0pt too high) detected at line 296
+Overfull \vbox (11.0pt too high) detected at line 310
  []
 
 
-Underfull \hbox (badness 1960) in paragraph at lines 296--297
+Underfull \hbox (badness 1960) in paragraph at lines 310--311
 []\T1/cmr/m/n/9 the longest the most long
  []
 
 
-Underfull \hbox (badness 1014) in paragraph at lines 298--299
+Underfull \hbox (badness 1014) in paragraph at lines 312--313
 []\T1/cmr/m/n/9 mais do mais mais... \T1/cmr/bx/n/9 (col-
  []
 
 
-Overfull \vbox (11.0pt too high) detected at line 300
+Overfull \vbox (11.0pt too high) detected at line 314
  []
 
-[8]
-<figures/steering_comparison.png, id=174, 715.473pt x 334.3692pt>
+
+Underfull \vbox (badness 6461) has occurred while \output is active []
+
+ [8]
+Overfull \hbox (3.79077pt too wide) in paragraph at lines 323--324
+\T1/cmr/m/n/10 put with mor-pho-log-i-cal degra-da-tion but pre-served lan-guag
+e iden-tity. In Llama 8B,
+ []
+
+
+Overfull \hbox (3.81854pt too wide) in paragraph at lines 323--324
+\T1/cmr/m/n/10 yield in-ter-me-di-ate re-sults: factor-2 pro-duces repet-i-tive
+ but rec-og-niz-ably Romance-
+ []
+
+
+Overfull \hbox (3.0965pt too wide) in paragraph at lines 323--324
+\T1/cmr/m/n/10 influenced out-put, and at fac-tor 3 the top-ranked PT-specific 
+fea-ture (fea-ture 2142
+ []
+
+<figures/steering_comparison.png, id=182, 715.473pt x 334.3692pt>
 File: figures/steering_comparison.png Graphic file (type png)
 <use figures/steering_comparison.png>
-Package pdftex.def Info: figures/steering_comparison.png  used on input line 31
-3.
+Package pdftex.def Info: figures/steering_comparison.png  used on input line 32
+7.
 (pdftex.def)             Requested size: 295.05711pt x 137.88817pt.
- [9 <./figures/steering_comparison.png>]
-<figures/crossscale_similarity.png, id=189, 568.0422pt x 351.714pt>
+[9] [10] [11 <./figures/steering_comparison.png>]
+<figures/crossscale_similarity.png, id=220, 568.0422pt x 351.714pt>
 File: figures/crossscale_similarity.png Graphic file (type png)
 <use figures/crossscale_similarity.png>
 Package pdftex.def Info: figures/crossscale_similarity.png  used on input line 
-366.
+383.
 (pdftex.def)             Requested size: 260.34265pt x 161.1947pt.
- [10]
-Overfull \hbox (1.54498pt too wide) in paragraph at lines 383--384
+ [12 <./figures/crossscale_similarity.png>]
+Overfull \hbox (1.54498pt too wide) in paragraph at lines 402--403
 []\T1/cmr/m/n/10 Individual fea-ture anal-y-sis re-in-forces this con-trast. In
  Llama 8B, fea-ture 18397
  []
 
+[13] [14]
+Overfull \hbox (0.6948pt too wide) in paragraph at lines 436--437
+\T1/cmr/m/n/10 r / llm-[]pt-[]interpretability-[]EC0D/$[][][][]. The repos-i-to
+ry in-cludes the com-plete pipeline,
+ []
 
-Underfull \vbox (badness 1205) has occurred while \output is active []
-
- [11 <./figures/crossscale_similarity.png>] [12] [13] (./main.bbl [14])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 425.
- [15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 425.
+(./main.bbl [15])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 442.
+ [16]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 442.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 425.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 425.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 442.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 442.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F3E2231D5C6E4B4D0C38D507D427C15F;141.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 425.
+(rerunfilecheck)             Checksum: D99DA8CE8F5E445DDEAED868777EBADF;149.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 442.
  ) 
 Here is how much of TeX's memory you used:
- 8762 strings out of 481239
- 128745 string characters out of 5920377
- 403619 words of memory out of 5000000
- 23777 multiletter control sequences out of 15000+600000
+ 8778 strings out of 481239
+ 128998 string characters out of 5920377
+ 411272 words of memory out of 5000000
+ 23784 multiletter control sequences out of 15000+600000
  550418 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,12n,46p,1484b,490s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,12n,46p,1870b,490s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/
 fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
@@ -652,10 +680,10 @@ ype1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super
 share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/ty
 pe1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/
 sfti1000.pfb>
-Output written on main.pdf (15 pages, 664533 bytes).
+Output written on main.pdf (16 pages, 672230 bytes).
 PDF statistics:
- 357 PDF objects out of 1000 (max. 8388607)
- 279 compressed objects within 3 object streams
- 88 named destinations out of 1000 (max. 500000)
+ 390 PDF objects out of 1000 (max. 8388607)
+ 303 compressed objects within 4 object streams
+ 97 named destinations out of 1000 (max. 500000)
  29 words of extra memory for PDF output out of 10000 (max. 10000000)
 
