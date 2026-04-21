@@ -88,7 +88,6 @@
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Categories of Portuguese-specific features in Gemma\nobreakspace  {}2B (120 features across 6 layers, categorized by top-activating tokens).\relax }}{8}{table.caption.17}\protected@file@percent }
 \newlabel{tab:feature_categories}{{6}{8}{Categories of Portuguese-specific features in Gemma~2B (120 features across 6 layers, categorized by top-activating tokens).\relax }{table.caption.17}{}}
 \citation{wendler2024llamas}
-\citation{joulin2016bag}
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Top-20 Llama-Scope PT features (layer 10) after padding masking. Features are categorized by their top-activating tokens on genuine (non-padding) Portuguese text.\relax }}{9}{table.caption.18}\protected@file@percent }
 \newlabel{tab:llama_features}{{7}{9}{Top-20 Llama-Scope PT features (layer 10) after padding masking. Features are categorized by their top-activating tokens on genuine (non-padding) Portuguese text.\relax }{table.caption.18}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Steering Results}{9}{subsection.1.4.4}\protected@file@percent }
@@ -96,47 +95,49 @@
 \@writefile{toc}{\contentsline {paragraph}{Gemma 2B: Romance-Language Continuum.}{9}{section*.20}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Llama 8B: English Substrate.}{9}{section*.21}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Amplification.}{9}{section*.22}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Individual Feature Analysis.}{9}{section*.24}\protected@file@percent }
+\citation{joulin2016bag}
 \@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Steering examples. \emph  {Baseline}: normal generation; \emph  {Suppression}: top-20 PT features set to zero; \emph  {Amplification}: top-20 PT features multiplied by 10. Fallback-language labels (\textbf  {in bold}) were assigned by manual inspection of the generated text.\relax }}{10}{table.caption.19}\protected@file@percent }
 \newlabel{tab:steering}{{8}{10}{Steering examples. \emph {Baseline}: normal generation; \emph {Suppression}: top-20 PT features set to zero; \emph {Amplification}: top-20 PT features multiplied by 10. Fallback-language labels (\textbf {in bold}) were assigned by manual inspection of the generated text.\relax }{table.caption.19}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Individual feature steering in Llama 8B (factor 5.0, prompt: ``A capital do Brasil \'e''). Baseline: ``uma das capitais brasileiras mais belas...''\relax }}{10}{table.caption.25}\protected@file@percent }
-\newlabel{tab:individual}{{9}{10}{Individual feature steering in Llama 8B (factor 5.0, prompt: ``A capital do Brasil \'e''). Baseline: ``uma das capitais brasileiras mais belas...''\relax }{table.caption.25}{}}
+\@writefile{toc}{\contentsline {paragraph}{Individual Feature Analysis.}{10}{section*.24}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Progressive Multi-Layer Steering.}{10}{section*.26}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Effect of PT feature amplification on generation across models. Gemma\nobreakspace  {}2B maintains generation coherence at high amplification factors, while Llama\nobreakspace  {}8B exhibits progressive textual collapse.\relax }}{11}{figure.caption.23}\protected@file@percent }
 \newlabel{fig:steering_comparison}{{2}{11}{Effect of PT feature amplification on generation across models. Gemma~2B maintains generation coherence at high amplification factors, while Llama~8B exhibits progressive textual collapse.\relax }{figure.caption.23}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Cross-scale comparison within the Gemma family. Cosine similarity between mean PT and ES/EN activations, and count of strongly PT-specific neurons ($s > 2$, where $s$ is the differential activation score of Eq.\nobreakspace  {}\ref  {eq:diff} applied to raw neurons rather than SAE features).\relax }}{11}{table.caption.27}\protected@file@percent }
-\newlabel{tab:crossscale}{{10}{11}{Cross-scale comparison within the Gemma family. Cosine similarity between mean PT and ES/EN activations, and count of strongly PT-specific neurons ($s > 2$, where $s$ is the differential activation score of Eq.~\ref {eq:diff} applied to raw neurons rather than SAE features).\relax }{table.caption.27}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Individual feature steering in Llama 8B (factor 5.0, prompt: ``A capital do Brasil \'e''). Baseline: ``uma das capitais brasileiras mais belas...''\relax }}{11}{table.caption.25}\protected@file@percent }
+\newlabel{tab:individual}{{9}{11}{Individual feature steering in Llama 8B (factor 5.0, prompt: ``A capital do Brasil \'e''). Baseline: ``uma das capitais brasileiras mais belas...''\relax }{table.caption.25}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Cross-Scale Analysis}{11}{subsection.1.4.5}\protected@file@percent }
 \newlabel{sec:crossscale}{{4.5}{11}{Cross-Scale Analysis}{subsection.1.4.5}{}}
 \citation{lieberum2024gemma}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }}{12}{figure.caption.28}\protected@file@percent }
-\newlabel{fig:crossscale}{{3}{12}{Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }{figure.caption.28}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Cross-scale comparison within the Gemma family. Cosine similarity between mean PT and ES/EN activations, and count of strongly PT-specific neurons ($s > 2$, where $s$ is the differential activation score of Eq.\nobreakspace  {}\ref  {eq:diff} applied to raw neurons rather than SAE features).\relax }}{12}{table.caption.27}\protected@file@percent }
+\newlabel{tab:crossscale}{{10}{12}{Cross-scale comparison within the Gemma family. Cosine similarity between mean PT and ES/EN activations, and count of strongly PT-specific neurons ($s > 2$, where $s$ is the differential activation score of Eq.~\ref {eq:diff} applied to raw neurons rather than SAE features).\relax }{table.caption.27}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{12}{section.1.5}\protected@file@percent }
 \newlabel{sec:discussion}{{5}{12}{Discussion}{section.1.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Cross-Family Language Organization}{12}{subsection.1.5.1}\protected@file@percent }
 \citation{wendler2024llamas}
+\citation{touvron2023llama2}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }}{13}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:crossscale}{{3}{13}{Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }{figure.caption.28}{}}
 \citation{sasft2026}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}TopK Performance Across Models}{13}{subsection.1.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}TopK Performance Across Models}{14}{subsection.1.5.2}\protected@file@percent }
 \citation{causal_lang_control2025}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Limitations}{14}{subsection.1.5.3}\protected@file@percent }
-\newlabel{sec:limitations}{{5.3}{14}{Limitations}{subsection.1.5.3}{}}
-\@writefile{toc}{\contentsline {paragraph}{Confounded variables (internal validity).}{14}{section*.29}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{SAE comparability (construct validity).}{14}{section*.30}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Steering artifacts (internal validity).}{14}{section*.31}\protected@file@percent }
-\bibstyle{splncs04}
-\bibdata{references}
-\bibcite{causal_lang_control2025}{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Limitations}{15}{subsection.1.5.3}\protected@file@percent }
+\newlabel{sec:limitations}{{5.3}{15}{Limitations}{subsection.1.5.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Confounded variables (internal validity).}{15}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{SAE comparability (construct validity).}{15}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Steering artifacts (internal validity).}{15}{section*.31}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Evaluation scope (external validity).}{15}{section*.32}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Feature interpretability (construct validity).}{15}{section*.33}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Reproducibility.}{15}{section*.34}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Future work}{15}{section*.35}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{15}{section.1.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Reproducibility.}{15}{section*.36}\protected@file@percent }
+\bibstyle{splncs04}
+\bibdata{references}
+\bibcite{causal_lang_control2025}{1}
 \bibcite{langfir2026}{2}
 \bibcite{sasft2026}{3}
 \bibcite{bricken2023monosemanticity}{4}
 \bibcite{costa2022no}{5}
 \bibcite{cunningham2023sparse}{6}
+\@writefile{toc}{\contentsline {paragraph}{Future work}{16}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{16}{section.1.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Reproducibility.}{16}{section*.36}\protected@file@percent }
 \bibcite{deng2025unveiling}{7}
 \bibcite{deng2025survey}{8}
 \bibcite{gao2024scaling}{9}
@@ -147,5 +148,6 @@
 \bibcite{nanda2022transformerlens}{14}
 \bibcite{souza2020bertimbau}{15}
 \bibcite{tang2024language}{16}
-\bibcite{wendler2024llamas}{17}
-\bibcite{wu2025axbench}{18}
+\bibcite{touvron2023llama2}{17}
+\bibcite{wendler2024llamas}{18}
+\bibcite{wu2025axbench}{19}

@@ -84,6 +84,12 @@ Tang, T., Luo, W., Huang, H., Zhang, D., Wang, X., Zhao, X., Wei, F., Wen,
   J.R.: Language-specific neurons: The key to multilingual capabilities in
   large language models. arXiv preprint arXiv:2402.16438  (2024)
 
+\bibitem{touvron2023llama2}
+Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y.,
+  Bashlykov, N., Batra, S., Bhargava, P., Bhosale, S., et~al.: {Llama 2}: Open
+  foundation and fine-tuned chat models. arXiv preprint arXiv:2307.09288
+  (2023)
+
 \bibitem{wendler2024llamas}
 Wendler, C., Veselovsky, V., Monea, G., West, R.: Do llamas work in english? on
   the latent language of multilingual transformers. arXiv preprint
