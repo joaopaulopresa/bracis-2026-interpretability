@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.7.26)  21 APR 2026 20:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.7.26)  21 APR 2026 20:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -881,45 +881,33 @@ Overfull \vbox (11.0pt too high) detected at line 324
  []
 
 [8]
-Overfull \hbox (3.79077pt too wide) in paragraph at lines 337--338
-\T1/cmr/m/n/10 put with mor-pho-log-i-cal degra-da-tion but pre-served lan-guag
-e iden-tity. In Llama 8B,
- []
-
-
-Overfull \hbox (3.81854pt too wide) in paragraph at lines 337--338
-\T1/cmr/m/n/10 yield in-ter-me-di-ate re-sults: factor-2 pro-duces repet-i-tive
- but rec-og-niz-ably Romance-
- []
-
-
-Overfull \hbox (3.0965pt too wide) in paragraph at lines 337--338
-\T1/cmr/m/n/10 influenced out-put, and at fac-tor 3 the top-ranked PT-specific 
-fea-ture (fea-ture 2142
- []
-
-[9]
-<figures/steering_comparison.png, id=205, 715.473pt x 334.3692pt>
+<figures/steering_comparison.png, id=195, 715.473pt x 334.3692pt>
 File: figures/steering_comparison.png Graphic file (type png)
 <use figures/steering_comparison.png>
-Package pdftex.def Info: figures/steering_comparison.png  used on input line 34
-1.
+Package pdftex.def Info: figures/steering_comparison.png  used on input line 33
+7.
 (pdftex.def)             Requested size: 295.05711pt x 137.88817pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [10 <./figures/steering_comparison.png>]
-<figures/crossscale_similarity.png, id=222, 568.0422pt x 351.714pt>
+<figures/crossscale_similarity.png, id=216, 568.0422pt x 351.714pt>
 File: figures/crossscale_similarity.png Graphic file (type png)
 <use figures/crossscale_similarity.png>
 Package pdftex.def Info: figures/crossscale_similarity.png  used on input line 
-379.
+373.
 (pdftex.def)             Requested size: 260.34265pt x 161.1947pt.
  [11]
-Overfull \hbox (29.56226pt too wide) in paragraph at lines 394--395
+Overfull \hbox (29.56226pt too wide) in paragraph at lines 388--389
 \T1/cmr/m/n/10 cross-Romance ac-ti-va-tion, while Llama's top fea-tures at laye
 r 10 in-clude mixed/subword
  []
 
 
-Overfull \hbox (5.12268pt too wide) in paragraph at lines 394--395
+Overfull \hbox (5.12268pt too wide) in paragraph at lines 388--389
 \T1/cmr/m/n/10 frag-ments and the PT-EN bridge fea-ture 18397---different fla-v
 ors of cross-language
  []
@@ -928,18 +916,18 @@ ors of cross-language
 Underfull \vbox (badness 1205) has occurred while \output is active []
 
  [12 <./figures/crossscale_similarity.png>] [13] (./main.bbl [14]) [15]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 421.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 421.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 415.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 415.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 421.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 421.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 415.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 415.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 2CB94CFAFE541FEBAC7D8A6CA2C6E26F;135.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 421.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 415.
  ) 
 Here is how much of TeX's memory you used:
- 18705 strings out of 481239
- 344936 string characters out of 5920377
+ 18700 strings out of 481239
+ 344881 string characters out of 5920377
  593444 words of memory out of 5000000
  33509 multiletter control sequences out of 15000+600000
  550418 words of font info for 65 fonts, out of 8000000 for 9000
@@ -969,10 +957,10 @@ public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm
 0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share
 /texmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/p
 ublic/cm-super/sfti1000.pfb>
-Output written on main.pdf (15 pages, 657102 bytes).
+Output written on main.pdf (15 pages, 655148 bytes).
 PDF statistics:
- 384 PDF objects out of 1000 (max. 8388607)
- 297 compressed objects within 3 object streams
- 87 named destinations out of 1000 (max. 500000)
+ 378 PDF objects out of 1000 (max. 8388607)
+ 291 compressed objects within 3 object streams
+ 82 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
