@@ -9,6 +9,11 @@ Bricken, T., Templeton, A., Batson, J., Chen, B., Jermyn, A., Conerly, T.,
   monosemanticity: Decomposing language models with dictionary learning.
   Transformer Circuits Thread  (2023)
 
+\bibitem{brinkmann2025shared}
+Brinkmann, J., Wendler, C., Bartelt, C., Mueller, A.: Large language models
+  share representations of latent grammatical concepts across typologically
+  diverse languages. arXiv preprint arXiv:2501.06346  (2025)
+
 \bibitem{causal_lang_control2025}
 Chou, C.T., Liu, G., Sun, J., Blondin, C., Zhu, K., Sharma, V., O'Brien, S.:
   Causal language control in multilingual transformers via sparse feature
@@ -73,6 +78,10 @@ Lieberum, T., Rajamanoharan, S., Conmy, A., Smith, L., Varma, N., Kram{\'a}r,
 \bibitem{nanda2022transformerlens}
 Nanda, N., Bloom, J.: Transformerlens. GitHub repository  (2022),
   \url{https://github.com/TransformerLensOrg/TransformerLens}
+
+\bibitem{schut2025english}
+Schut, L., Gal, Y., Farquhar, S.: Do multilingual {LLM}s think in {E}nglish?
+  arXiv preprint arXiv:2502.15603  (2025)
 
 \bibitem{deng2025survey}
 Shu, D., Wu, X., Zhao, H., Rai, D., Yao, Z., Liu, N., Du, M.: A survey on
