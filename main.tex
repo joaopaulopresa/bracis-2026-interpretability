@@ -264,9 +264,10 @@ From the set of strongly PT-specific features in Gemma~2B we selected the top 20
 Morphological & 24 & ``-\c{c}\~ao'', ``-sivo'', ``\^enio'' & layers 5--15 \\
 Syntactic & 18 & ``do'', ``pelo'', ``em'', ``uma'' & layer 0, layers 20--25 \\
 Lexical & 4 & ``Maia'', ``Oliveira'' & layers 15--25 \\
+Punctuation & 4 & ``('', ``\textbackslash n'', ``.'', ``,'' & layers 0, 20, 25 \\
 Semantic & 1 & ``brasileiro'' & layer 15 \\
 Shared Romance & 1 & (active for multiple langs) & layer 10 \\
-Unclassified & 72 & (no clear dominant token) & all \\
+Unclassified & 68 & (no clear dominant token) & all \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -362,7 +363,7 @@ To disentangle family effects from scale effects, we also analyzed Gemma-2-9B (4
 \end{tabular}
 \end{table}
 
-The 9B model shows progressive linguistic differentiation (Figure~\ref{fig:crossscale}): cosine similarity between Portuguese and Spanish mean activations drops monotonically from 0.9998 (layer 0) to 0.9883 (layer 41). The PT-EN drop is steeper still (0.9995 $\to$ 0.9815). The number of strongly PT-specific neurons increases from 9 (layer 0) to 41 (layer 41). The 2B model, by contrast, shows top differential activation scores pinned near the theoretical ceiling at every analyzed layer (all $\sim$2.236, the value of $\sqrt{5}$). We rely on the qualitative contrast (flat vs progressive) rather than absolute magnitudes, since the 2B and 9B numbers live in different spaces: 2B scores are computed on Gemma Scope SAE features, while 9B scores use raw neuron activations because no pretrained SAE suite was available for the 9B model at the time of this study. The pattern suggests that larger models develop finer language separation in deeper layers, a property not visible at the 2B scale.
+The 9B model shows progressive linguistic differentiation (Figure~\ref{fig:crossscale}): cosine similarity between Portuguese and Spanish mean activations drops from 0.9998 (layer 0) to 0.9883 (layer 41), with most of the decrease concentrated in the final third of the network. The PT-EN drop is steeper still (0.9995 $\to$ 0.9815). The number of strongly PT-specific neurons increases from 9 (layer 0) to 41 (layer 41). The 2B model, by contrast, shows top differential activation scores pinned near the theoretical ceiling at every analyzed layer (all $\sim$2.236, the value of $\sqrt{5}$). We rely on the qualitative contrast (flat vs progressive) rather than absolute magnitudes, since the 2B and 9B numbers live in different spaces: 2B scores are computed on Gemma Scope SAE features, while 9B scores use raw neuron activations because no pretrained SAE suite was available for the 9B model at the time of this study. The pattern suggests that larger models develop finer language separation in deeper layers, a property not visible at the 2B scale.
 
 \begin{figure}[t]
 \centering
@@ -377,7 +378,7 @@ The 9B model shows progressive linguistic differentiation (Figure~\ref{fig:cross
 
 \subsection{Cross-Family Language Organization}
 
-A pairwise cosine similarity analysis on mean FLORES activations supports a layered typological separation in both models: PT-EN distance (Romance vs.\ Germanic) is the largest at every depth, PT-FR distance (cross-subfamily) grows in middle layers, and PT-ES distance (Iberian) diverges only in late layers. For Gemma~2B at layer~25 we measure cos(PT,ES)$=0.958$, cos(PT,FR)$=0.928$, cos(PT,EN)$=0.932$. The continuum therefore has variable granularity across depth.
+A pairwise cosine similarity analysis on mean FLORES activations supports a layered typological separation in both models: PT-EN distance (Romance vs.\ Germanic) is already the largest at the earliest layers, PT-FR distance (cross-subfamily) grows in middle layers, and PT-ES distance (Iberian) diverges only in late layers. For Gemma~2B at layer~25 we measure cos(PT,ES)$=0.958$, cos(PT,FR)$=0.928$, cos(PT,EN)$=0.932$. The continuum therefore has variable granularity across depth.
 
 Beyond Table~\ref{tab:steering}, the identity and texture of the fallback strengthen the picture. For Gemma, \emph{``A l\'ingua portuguesa \'e falada em''} continues in Spanish (\emph{``todos os continentes, enrapapeando la lengua espa\~nola...''}), preserving the topic, and another prompt drifts into Catalan (\emph{``la una metr\`opolis ambduna de les fa uns centenars''}); since Catalan is absent from our five evaluation languages, the continuum reaches beyond the set we measure. Gemma's curated multilingual training mix~\cite{lieberum2024gemma} plausibly encourages this shared Romance structure. Llama, in contrast, falls back to English (\emph{``the longest the most long the is the more long the''} from \emph{``O rio mais longo do mundo \'e''}), consistent with Wendler et al.~\cite{wendler2024llamas} and with Meta's ${\sim}90\%$ English pretraining mix~\cite[Table~10]{touvron2023llama2} that would make English a natural base layer.
 
@@ -388,14 +389,14 @@ The two paradigms suggest different affordances: a Romance continuum may permit 
 \subsection{TopK Performance Across Models}
 \label{sec:topk-gap}
 
-The TopK gap (79.7\% FVE on Gemma~2B vs.\ 98.0\% on Llama~8B) appears under identical hyperparameters. A plausible explanation is the intrinsic dimensionality of the activations: Llama's $d_\text{model}{=}4{,}096$ (nearly twice Gemma's 2,304) offers a higher-dimensional space where activations may concentrate on a $k$-sparse basis more readily, while Gemma's lower-dimensional activations diffuse across many components and defeat exact-$k$ sparsity. ReLU+L1 adapts its sparsity per sample and exceeds 99\% FVE on both models; TopK produces $\sim$35\% dead features on both, versus $<$1.2\% for ReLU+L1. The practical takeaway is that TopK transfer is not automatic: practitioners should validate on their specific base model.
+The TopK gap (79.7\% FVE on Gemma~2B vs.\ 98.0\% on Llama~8B) appears under identical hyperparameters. A plausible explanation is the intrinsic dimensionality of the activations: Llama's $d_\text{model}{=}4{,}096$ (nearly twice Gemma's 2,304) offers a higher-dimensional space where activations may concentrate on a $k$-sparse basis more readily, while Gemma's lower-dimensional activations diffuse across many components and defeat exact-$k$ sparsity. ReLU+L1 adapts its sparsity per sample and exceeds 99\% FVE on both models; TopK produces 31\% dead features on Llama and 35\% on Gemma at the best configuration, versus $<$1.2\% for ReLU+L1. The practical takeaway is that TopK transfer is not automatic: practitioners should validate on their specific base model.
 
 \subsection{Limitations}
 \label{sec:limitations}
 
 Our two models differ simultaneously in family, size, attention variant, and training mix, so the observed differences in fallback behavior may reflect any combination of these factors; the within-family 2B vs.\ 9B analysis mitigates only scale effects, and a fully controlled comparison would require same-size models from different families. The pretrained SAEs themselves differ in activation function, dictionary size, and training procedure, so we rely on qualitative contrasts (fallback language, feature categories) rather than absolute counts, and normalize by dictionary size where counts are reported. On the steering side, factor-10 amplification collapses Llama output and layer-10 steering disrupts the foundational representations that later layers depend on (Section~\ref{sec:steering}); recent work~\cite{causal_lang_control2025} shows $90\%$ single-feature steering between typologically distant languages, indicating that the difficulty we observe within Romance languages reflects genuinely shared representations rather than a methodological wall. Finally, steering generation uses temperature $T{=}0.7$, so the specific strings in Table~\ref{tab:steering} are illustrative; the qualitative conclusions (fallback identity, feature categories) are stable across prompts and runs.
 
-In scope, we analyze 6 of 26--32 layers per model, 5 European languages (4 Romance), and a single corpus (FLORES-200); the European focus may inflate Portuguese specificity scores and other genres may activate different features. 60\% of Gemma's 120 inspected features remain unclassified; automated LLM-based interpretation could improve coverage but introduces its own biases. Future work should extend to additional model families (Mistral, Qwen) and to same-size comparisons, include typologically diverse languages, and investigate PT-BR vs.\ PT-PT dialect variation.
+In scope, we analyze 6 of 26--32 layers per model, 5 European languages (4 Romance), and a single corpus (FLORES-200); the European focus may inflate Portuguese specificity scores and other genres may activate different features. 57\% of Gemma's 120 inspected features remain unclassified; automated LLM-based interpretation could improve coverage but introduces its own biases. Future work should extend to additional model families (Mistral, Qwen) and to same-size comparisons, include typologically diverse languages, and investigate PT-BR vs.\ PT-PT dialect variation.
 
 % ============================================================
 \section{Conclusion}
