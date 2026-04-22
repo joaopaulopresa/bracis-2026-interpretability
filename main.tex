@@ -18,9 +18,9 @@
 
 \begin{document}
 
-\title{Two Architectures of Multilingualism:\\Causal Evidence from SAE Feature Suppression in Gemma and Llama}
+\title{Language Organization in Multilingual LLMs through SAE Feature Suppression}
 
-\titlerunning{Two Architectures of Multilingualism via SAE Suppression}
+\titlerunning{Language Organization in Multilingual LLMs}
 
 % Double-anonymous: no author info
 \author{Anonymous Author(s)}
@@ -31,7 +31,7 @@
 
 % ============================================================
 \begin{abstract}
-How do multilingual large language models organize the languages they speak? We present causal evidence that the answer depends on the model family. Using Portuguese as a probe, we apply Sparse Autoencoder (SAE) feature suppression to Gemma-2-2B and Llama-3.1-8B: ablating the top Portuguese-specific features redirects Gemma to Spanish or Catalan and Llama to English. The two fallback directions expose internal geometries we name the \emph{Romance-language continuum} (languages arranged by typological proximity, observed in Gemma) and the \emph{English substrate} (non-English languages as overlays on an English default, observed in Llama). Portuguese is suited to surface this contrast because its Romance neighbors make any Romance fallback directly observable; a typologically isolated probe could not separate the continuum from the substrate. Three converging measurements support the divide. Raw-neuron monolinguality yields 0.270 for Llama against 0.252 for Gemma, with the contrast sharpest at each model's terminal layer; pairwise FLORES similarity reflects typological distance at every depth but refines Romance-internal distinctions only in late layers; and amplifying one Llama-Scope feature (\#18397) produces PT-EN hybrid text, a feature-level instance of the English-pivot hypothesis. We also train 16 custom SAEs and find that the ReLU+L1 vs TopK architecture ranking does not transfer across base models (TopK FVE 79.7\% on Gemma against 98.0\% on Llama). To our knowledge, this is the first mechanistic study of multilingual representation to contrast paradigms across model families rather than describe one in isolation.
+The way multilingual large language models organize the languages they speak depends on the model family, and we present causal evidence for this claim. Using Portuguese as a probe, we apply Sparse Autoencoder (SAE) feature suppression to Gemma-2-2B and Llama-3.1-8B: ablating the top Portuguese-specific features redirects Gemma to Spanish or Catalan and Llama to English. The two fallback directions expose internal geometries we name the \emph{Romance-language continuum} (languages arranged by typological proximity, observed in Gemma) and the \emph{English substrate} (non-English languages as overlays on an English default, observed in Llama). Portuguese is suited to surface this contrast because its Romance neighbors make any Romance fallback directly observable; a typologically isolated probe could not separate the continuum from the substrate. Three converging measurements support the divide. Raw-neuron monolinguality yields 0.270 for Llama against 0.252 for Gemma, with the contrast sharpest at each model's terminal layer; pairwise FLORES similarity reflects typological distance at every depth but refines Romance-internal distinctions only in late layers; and amplifying one Llama-Scope feature (\#18397) produces PT-EN hybrid text, a feature-level instance of the English-pivot hypothesis. We also train 16 custom SAEs and find that the ReLU+L1 vs TopK architecture ranking does not transfer across base models (TopK FVE 79.7\% on Gemma against 98.0\% on Llama). To our knowledge, this is the first mechanistic study of multilingual representation to contrast paradigms across model families rather than describe one in isolation.
 
 \keywords{Mechanistic Interpretability \and Sparse Autoencoders \and Multilingual LLMs \and Portuguese NLP \and Feature Steering}
 \end{abstract}
