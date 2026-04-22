@@ -146,7 +146,7 @@ To identify Portuguese-specific features, we compute a differential activation s
 s_i = \frac{\bar{a}_i^{\text{PT}} - \frac{1}{|\mathcal{L}'|}\sum_{l \in \mathcal{L}'}\bar{a}_i^{l}}{\sigma_i}
 \label{eq:diff}
 \end{equation}
-where $\mathcal{L}' = \{\text{EN, ES, FR, IT}\}$ is the set of contrast languages, $\mathcal{L} = \mathcal{L}' \cup \{\text{PT}\}$ is the full set of five FLORES languages, and $\sigma_i = \text{std}(\{\bar{a}_i^{l}\}_{l \in \mathcal{L}})$ normalizes by cross-language variability. Features with $s_i > 2$ are considered \emph{strongly Portuguese-specific}: their Portuguese activation is more than 2 standard deviations above the cross-language mean.
+where $\mathcal{L}' = \{\text{EN, ES, FR, IT}\}$ is the set of contrast languages, $\mathcal{L} = \mathcal{L}' \cup \{\text{PT}\}$ is the full set of five FLORES languages, and $\sigma_i = \text{std}(\{\bar{a}_i^{l}\}_{l \in \mathcal{L}})$ normalizes by cross-language variability. Features with $s_i > 2$ are considered strongly Portuguese-specific: their Portuguese activation is more than 2 standard deviations above the cross-language mean.
 
 We apply this analysis at 6 layers per model: layers 0, 5, 10, 15, 20, 25 for Gemma~2B; layers 0, 5, 10, 16, 21, 26 for Llama~8B (selected at approximately equivalent relative positions).
 
@@ -163,7 +163,7 @@ Values close to $1/|\mathcal{L}| = 0.2$ indicate a neuron that activates compara
 
 \subsection{Steering Experiments}
 
-We perform causal interventions by hooking into the model's forward pass at layer 10 and modifying SAE-encoded features. For \emph{amplification}, we encode the residual activation through the SAE, multiply the top-20 Portuguese-specific features by factor $\alpha \in \{1, 2, 5, 10\}$, decode back, and replace the original activation; this tests whether increasing PT feature magnitudes forces Portuguese generation. For \emph{suppression}, the same procedure is applied but the top-20 features are set to zero, testing whether removing PT features causes language switching and, in particular, which language the model defaults to.
+We perform causal interventions by hooking into the model's forward pass at layer 10 and modifying SAE-encoded features. For amplification, we encode the residual activation through the SAE, multiply the top-20 Portuguese-specific features by factor $\alpha \in \{1, 2, 5, 10\}$, decode back, and replace the original activation; this tests whether increasing PT feature magnitudes forces Portuguese generation. For suppression, the same procedure is applied but the top-20 features are set to zero, testing whether removing PT features causes language switching and, in particular, which language the model defaults to.
 
 For Gemma~2B we use Gemma Scope (layer 10, 16k features); for Llama~8B we use Llama-Scope (layer 10, 32k features, JumpReLU). We test on 10 prompts per language (PT, EN, ES, FR), generating 50 tokens with temperature 0.7.
 
@@ -301,7 +301,7 @@ Table~\ref{tab:steering} delivers our central result: suppressing the top-20 PT-
 
 \begin{table}[t]
 \centering
-\caption{Steering examples. \emph{Baseline}: normal generation; \emph{Suppression}: top-20 PT features set to zero; \emph{Amplification}: top-20 PT features multiplied by 10. Fallback-language labels (\textbf{in bold}) were assigned by manual inspection of the generated text.}
+\caption{Steering examples. Baseline: normal generation; Suppression: top-20 PT features set to zero; Amplification: top-20 PT features multiplied by 10. Fallback-language labels (\textbf{in bold}) were assigned by manual inspection of the generated text.}
 \label{tab:steering}
 \footnotesize
 \begin{tabular}{p{2.0cm}lp{4.2cm}|p{4.2cm}}
