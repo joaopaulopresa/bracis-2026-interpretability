@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.7.26)  21 APR 2026 22:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.7.26)  21 APR 2026 22:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -868,19 +868,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 319--320
 Overfull \vbox (11.0pt too high) detected at line 321
  []
 
-[8]
-<figures/steering_comparison.png, id=193, 715.473pt x 334.3692pt>
+
+Underfull \vbox (badness 7944) has occurred while \output is active []
+
+ [8]
+[9]
+<figures/steering_comparison.png, id=199, 715.473pt x 334.3692pt>
 File: figures/steering_comparison.png Graphic file (type png)
 <use figures/steering_comparison.png>
 Package pdftex.def Info: figures/steering_comparison.png  used on input line 33
 4.
 (pdftex.def)             Requested size: 295.05711pt x 137.88817pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [9]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [10 <./figures/steering_comparison.png>]
 <figures/crossscale_similarity.png, id=214, 568.0422pt x 351.714pt>
 File: figures/crossscale_similarity.png Graphic file (type png)
@@ -889,19 +887,13 @@ Package pdftex.def Info: figures/crossscale_similarity.png  used on input line
 370.
 (pdftex.def)             Requested size: 260.34265pt x 161.1947pt.
  [11]
-Overfull \hbox (29.56226pt too wide) in paragraph at lines 385--386
-\T1/cmr/m/n/10 cross-Romance ac-ti-va-tion, while Llama's top fea-tures at laye
-r 10 in-clude mixed/subword
+Overfull \hbox (5.47092pt too wide) in paragraph at lines 385--386
+\T1/cmr/m/n/10 same con-trast: Gemma in-cludes a ``Shared Ro-mance'' cat-e-gory
+ with cross-Romance
  []
 
 
-Overfull \hbox (5.12268pt too wide) in paragraph at lines 385--386
-\T1/cmr/m/n/10 frag-ments and the PT-EN bridge fea-ture 18397---different fla-v
-ors of cross-language
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1205) has occurred while \output is active []
 
  [12 <./figures/crossscale_similarity.png>] [13] (./main.bbl [14]) [15]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 412.
@@ -916,11 +908,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 412.
 Here is how much of TeX's memory you used:
  18698 strings out of 481239
  344859 string characters out of 5920377
- 594442 words of memory out of 5000000
+ 593442 words of memory out of 5000000
  33509 multiletter control sequences out of 15000+600000
  550418 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,12n,60p,1875b,899s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,60p,1884b,899s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/
 fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
@@ -945,7 +937,7 @@ public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm
 0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share
 /texmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/p
 ublic/cm-super/sfti1000.pfb>
-Output written on main.pdf (15 pages, 655798 bytes).
+Output written on main.pdf (15 pages, 655719 bytes).
 PDF statistics:
  376 PDF objects out of 1000 (max. 8388607)
  289 compressed objects within 3 object streams
