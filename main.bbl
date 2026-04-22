@@ -47,6 +47,15 @@ Gao, L., la~Tour, T.D., Tillman, H., Goh, G., Troll, R., Radford, A.,
   Sutskever, I., Leike, J., Wu, J.: Scaling and evaluating sparse autoencoders.
   arXiv preprint arXiv:2406.04093  (2024)
 
+\bibitem{gemma2_team2024}
+{Gemma Team}: {Gemma 2}: Improving open language models at a practical size.
+  arXiv preprint arXiv:2408.00118  (2024)
+
+\bibitem{grattafiori2024llama3}
+Grattafiori, A., Dubey, A., Jauhri, A., Pandey, A., Kadian, A., Al-Dahle, A.,
+  Letman, A., Mathur, A., Schelten, A., Vaughan, A., et~al.: The {Llama 3} herd
+  of models. arXiv preprint arXiv:2407.21783  (2024)
+
 \bibitem{he2024llama}
 He, Z., Shu, W., Ge, X., et~al.: Llama scope: Extracting millions of features
   from llama-3.1-8b with sparse autoencoders. arXiv preprint arXiv:2410.20526
@@ -97,12 +106,6 @@ Souza, F., Nogueira, R., Lotufo, R.: {BERT}imbau: Pretrained {BERT} models for
 Tang, T., Luo, W., Huang, H., Zhang, D., Wang, X., Zhao, X., Wei, F., Wen,
   J.R.: Language-specific neurons: The key to multilingual capabilities in
   large language models. arXiv preprint arXiv:2402.16438  (2024)
-
-\bibitem{touvron2023llama2}
-Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y.,
-  Bashlykov, N., Batra, S., Bhargava, P., Bhosale, S., et~al.: {Llama 2}: Open
-  foundation and fine-tuned chat models. arXiv preprint arXiv:2307.09288
-  (2023)
 
 \bibitem{wendler2024llamas}
 Wendler, C., Veselovsky, V., Monea, G., West, R.: Do llamas work in english? on
