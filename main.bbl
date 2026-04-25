@@ -61,10 +61,6 @@ He, Z., Shu, W., Ge, X., et~al.: Llama scope: Extracting millions of features
   from llama-3.1-8b with sparse autoencoders. arXiv preprint arXiv:2410.20526
   (2024)
 
-\bibitem{joulin2016bag}
-Joulin, A., Grave, E., Bojanowski, P., Mikolov, T.: Bag of tricks for efficient
-  text classification. arXiv preprint arXiv:1607.01759  (2016)
-
 \bibitem{karvonen2025saebench}
 Karvonen, A., Rager, C., Lin, J., Tigges, C., Bloom, J.I., Chanin, D., Lau,
   Y.T., Farrell, E., McDougall, C.S., Ayonrinde, K., Till, D., Wearden, M.,
