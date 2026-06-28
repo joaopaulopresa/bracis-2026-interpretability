@@ -3,6 +3,11 @@
 \providecommand{\urlprefix}{URL }
 \providecommand{\doi}[1]{https://doi.org/#1}
 
+\bibitem{andrylie2025saelape}
+Andrylie, L.M., Rahmanisa, I., Ihsani, M.K., Wicaksono, A.F., Wibowo, H.A.,
+  Aji, A.F.: Sparse autoencoders can capture language-specific concepts across
+  diverse languages. arXiv preprint arXiv:2507.11230  (2025)
+
 \bibitem{bricken2023monosemanticity}
 Bricken, T., Templeton, A., Batson, J., Chen, B., Jermyn, A., Conerly, T.,
   Turner, N., Anil, C., Denison, C., Askell, A., et~al.: Towards
@@ -13,6 +18,10 @@ Bricken, T., Templeton, A., Batson, J., Chen, B., Jermyn, A., Conerly, T.,
 Brinkmann, J., Wendler, C., Bartelt, C., Mueller, A.: Large language models
   share representations of latent grammatical concepts across typologically
   diverse languages. arXiv preprint arXiv:2501.06346  (2025)
+
+\bibitem{cho2025analyzing}
+Cho, I., Hockenmaier, J.: Analyzing multilingualism in large language models
+  with sparse autoencoders. In: Conference on Language Modeling (COLM) (2025)
 
 \bibitem{causal_lang_control2025}
 Chou, C.T., Liu, G., Sun, J., Blondin, C., Zhu, K., Sharma, V., O'Brien, S.:
@@ -35,6 +44,12 @@ Deng, B., Wan, Y., Yang, B., Huang, F., Wang, W., Feng, F.: {SASFT}: Sparse
   autoencoder-guided supervised finetuning to mitigate unexpected
   code-switching in {LLMs}. In: Proceedings of the International Conference on
   Learning Representations (ICLR) (2026)
+
+\bibitem{deng2025unveiling}
+Deng, B., Wan, Y., Yang, B., Zhang, Y., Feng, F.: Unveiling language-specific
+  features in large language models via sparse autoencoders. In: Proceedings of
+  the 63rd Annual Meeting of the Association for Computational Linguistics
+  (Volume 1: Long Papers). Association for Computational Linguistics (2025)
 
 \bibitem{gao2024scaling}
 Gao, L., la~Tour, T.D., Tillman, H., Goh, G., Troll, R., Radford, A.,
