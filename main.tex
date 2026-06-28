@@ -1,5 +1,5 @@
-% Mechanistic Interpretability of Portuguese in Multilingual LLMs
-% BRACIS 2026 — Springer LNAI format, double-anonymous
+% Language Organization in Multilingual LLMs through SAE Feature Suppression
+% BRACIS 2026 — Springer LNAI format, camera-ready (non-anonymous)
 %
 \documentclass[runningheads]{llncs}
 
@@ -22,16 +22,20 @@
 
 \titlerunning{Language Organization in Multilingual LLMs}
 
-% Double-anonymous: no author info
-\author{Anonymous Author(s)}
-\authorrunning{Anonymous}
-\institute{Anonymous Institution}
+\author{João Paulo Cavalcante Presa\orcidID{0009-0004-4160-6495} \and
+Willgnner Ferreira Santos\orcidID{0000-0002-9540-7238} \and
+Sávio Salvarino Teles de Oliveira\orcidID{0009-0002-1203-5246}}
+\authorrunning{J. P. C. Presa et al.}
+\institute{Federal University of Goiás (UFG), Goiânia, Brazil\\
+\email{joaopaulop@discente.ufg.br} \and
+\email{eng.willgnner@gmail.com} \and
+\email{savioteles@ufg.br}}
 
 \maketitle
 
 % ============================================================
 \begin{abstract}
-The way multilingual large language models organize the languages they speak depends on the model family, and we present causal evidence for this claim. Using Portuguese as a probe, we apply Sparse Autoencoder (SAE) feature suppression to Gemma-2-2B and Llama-3.1-8B: ablating the top Portuguese-specific features redirects Gemma to Spanish or Catalan and Llama to English. The two fallback directions expose internal geometries we name the \emph{Romance-language continuum} (languages arranged by typological proximity, observed in Gemma) and the \emph{English substrate} (non-English languages as overlays on an English default, observed in Llama). Portuguese is suited to surface this contrast because its Romance neighbors make any Romance fallback directly observable; a typologically isolated probe could not separate the continuum from the substrate. The contrast survives feature-agnostic controls: Gemma's Romance fallback requires PT-targeted suppression (random and EN-feature suppression preserve Portuguese), whereas Llama collapses to English under PT-targeted, EN-targeted, and L0-matched random suppression alike (Mann-Whitney $p = 0.69$ between PT and random), evidence that the substrate manifests as a generalized fragility. Probes in Spanish, Italian, and French confirm that Llama collapses to English on 42 of 45 Romance probes while Gemma preserves the source language. Pairwise masked FLORES cosine similarity (PT-ES $>$ PT-EN at $p < 10^{-150}$ per layer in both models) and linear CKA at the terminal layer (PT-EN at 0.61 in Gemma vs.\ 0.74 in Llama) corroborate the divide. We also train 16 custom SAEs and find that the ReLU+L1 vs.\ TopK architecture ranking does not transfer across base models (TopK FVE 79.7\% on Gemma against 98.0\% on Llama). To our knowledge, this is the first mechanistic study to establish a causal cross-family contrast of language-organization paradigms.
+How multilingual large language models organize the languages they speak depends on the model family; we present causal evidence for this claim. Using Portuguese as a probe, we apply Sparse Autoencoder (SAE) feature suppression to Gemma-2-2B and Llama-3.1-8B: ablating the top Portuguese-specific features redirects Gemma to Spanish or Catalan and Llama to English. These fallback directions expose internal geometries we name the \emph{Romance-language continuum} (languages arranged by typological proximity, in Gemma) and the \emph{English substrate} (non-English languages as overlays on an English default, in Llama). Portuguese surfaces this contrast because its Romance neighbors make any Romance fallback observable; a typologically isolated probe could not separate the two. The contrast survives feature-agnostic controls: Gemma's Romance fallback requires PT-targeted suppression, while Llama collapses to English under PT-targeted, EN-targeted, and L0-matched random suppression alike (Mann-Whitney $p = 0.69$ between PT and random), evidence that the substrate manifests as a generalized fragility. Probes in Spanish, Italian, and French confirm that Llama collapses to English on 42 of 45 Romance probes while Gemma preserves the source language. Masked FLORES cosine similarity (PT-ES $>$ PT-EN at $p < 10^{-150}$ per layer in both models) and terminal-layer linear CKA (PT-EN at 0.61 in Gemma vs.\ 0.74 in Llama) corroborate the divide. Training 16 custom SAEs, we find that the ReLU+L1 vs.\ TopK ranking does not transfer across base models (TopK FVE 79.7\% on Gemma against 98.0\% on Llama). To our knowledge, this is the first mechanistic study establishing a causal cross-family contrast of language-organization paradigms.
 
 \keywords{Mechanistic Interpretability \and Sparse Autoencoders \and Multilingual LLMs \and Portuguese NLP \and Feature Steering}
 \end{abstract}
@@ -239,6 +243,7 @@ Differential analysis (Eq.~\ref{eq:diff}) with pretrained SAEs identifies strong
 \centering
 \caption{Strongly PT-specific feature counts ($s > 2$) at each analyzed layer using pretrained SAEs (column headers indicate layer indices; Gemma 2B: layers 0, 5, 10, 15, 20, 25; Llama 8B: layers 0, 5, 10, 16, 21, 26). Both rows use padding-masked analysis: tokens identified as padding or BOS are excluded before computing per-feature mean activations. The differential activation score has a theoretical ceiling of $5/2 = 2.5$ (when a feature activates only on PT among the five languages, its score equals $\mathrm{mean}/\mathrm{std} = 2.5$).}
 \label{tab:features}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lccccccc}
 \toprule
 \textbf{Model (SAE)} & \textbf{Layer 0} & \textbf{Layer 5} & \textbf{Layer 10} & \textbf{Layer 15/16} & \textbf{Layer 20/21} & \textbf{Layer 25/26} & \textbf{Total} \\
@@ -246,7 +251,8 @@ Differential analysis (Eq.~\ref{eq:diff}) with pretrained SAEs identifies strong
 Gemma 2B (16k) & 1{,}134 & 835 & 733 & 473 & 530 & 777 & 4{,}482 \\
 Llama 8B (32k) & 698 & 675 & 747 & 646 & 593 & 452 & 3{,}811 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 Both models contain thousands of strongly PT-specific features. Normalizing for SAE dictionary size: Gemma has $4{,}482/16{,}384 = 27.4\%$ and Llama has $3{,}811/32{,}768 = 11.6\%$. Gemma 2B concentrates features at layer 0 (1,134) and recovers a second peak at layer 25 (777); Llama 8B peaks at layer 10 (747) and declines to 452 at layer 26. The padding-masked Gemma differential roughly doubles the counts reported in earlier drafts that used unmasked aggregation, while preserving the qualitative pattern.
@@ -281,7 +287,8 @@ For Llama~8B, many top features initially activated on padding tokens, an artifa
 \caption{Top-20 Llama-Scope PT features (layer 10) after padding masking. Features are categorized by their top-activating tokens on genuine (non-padding) Portuguese text.}
 \label{tab:llama_features}
 \footnotesize
-\begin{tabular}{lllp{5cm}}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llll}
 \toprule
 \textbf{Category} & \textbf{Count} & \textbf{Example tokens} & \textbf{Note} \\
 \midrule
@@ -289,7 +296,8 @@ Syntactic & 14 & ``de'', ``os'', ``a'', ``um'', ``que'', ``com'' & Prepositions,
 Morphological & 4 & ``s\~ao'', ``\^a'', ``-icos'', ``-ode'' & PT verb forms, suffixes \\
 Mixed/subword & 2 & ``ab'', ``di'' & Subword fragments in PT contexts \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 We restricted manual inspection to the top-20 features at the SAE-training layer (layer 10) for Llama, against 120 features across all 6 analyzed layers for Gemma, reflecting the cost of token-level inspection of Llama-Scope's larger dictionary. After masking, syntactic features (prepositions ``de''/``com'', articles ``a''/``os''/``um'') dominate, with morphological features (``s\~ao'', ``\^a'', suffixes ``-icos'') also present, mirroring Gemma's layer-10 composition. Methodologically, differential analysis on padded sequences can produce spurious results when languages tokenize to different lengths, a pitfall we have not seen documented in the SAE interpretability literature.
@@ -362,8 +370,8 @@ The 9B model shows progressive linguistic differentiation (Figure~\ref{fig:cross
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/crossscale_similarity.png}
-\caption{Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.}
+\includegraphics[width=\textwidth]{figures/crossscale_similarity.png}
+\caption{Progressive linguistic differentiation in Gemma-2-9B: masked cosine similarity between Portuguese and Spanish, French, and English mean activations decreases in deeper layers (left), while the number of PT-specific neurons increases (right). This gradient is absent in the 2B model.}
 \label{fig:crossscale}
 \end{figure}
 
@@ -398,7 +406,7 @@ In scope, we analyze 6 of 26--32 layers per model, 5 European languages (4 Roman
 
 We presented causal evidence for two architectures of multilingualism. Suppressing Portuguese-specific features redirects Gemma-2-2B to Spanish or Catalan and Llama-3.1-8B to English, exposing internal geometries we name the Romance-language continuum and the English substrate. The contrast survives an L0-matched random-feature control (Gemma's Romance fallback requires PT-targeted suppression; Llama collapses to English under any matched 20-feature perturbation) and generalizes to Spanish, Italian, and French probes (Llama 42 of 45 to English; Gemma preserves the source language). Pairwise masked FLORES cosine similarity, linear CKA at the terminal layer (PT-EN gap of 0.13 between Gemma and Llama), and single-feature steering that surfaces a PT-EN bridge feature in Llama with no Gemma analogue corroborate the divide. Portuguese is what makes the paradigms distinguishable: a typologically embedded probe reveals the continuum where an isolated probe could not. Contrasting two families rather than describing one suggests that training data composition shapes the organizational paradigm itself, a hypothesis further cross-family studies can test.
 
-\paragraph{Reproducibility.} Source code, configurations, per-experiment result files, and the figures reported here are available at \url{https://anonymous.4open.science/r/llm-pt-interpretability-EC0D/}\footnote{Anonymous for double-blind review; released non-anonymously upon acceptance. SAE checkpoints and cached activations are not redistributed due to size; scripts regenerate them from public base models and FLORES-200 / Portuguese Wikipedia.}.
+\paragraph{Reproducibility.} Source code, configurations, per-experiment result files, and the figures reported here are available at \url{https://github.com/joaopaulopresa/llm-pt-interpretability}\footnote{SAE checkpoints and cached activations are not redistributed due to size; scripts regenerate them from public base models and FLORES-200 / Portuguese Wikipedia.}.
 
 % ============================================================
 \bibliographystyle{splncs04}

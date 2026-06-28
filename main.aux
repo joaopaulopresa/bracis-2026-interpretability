@@ -19,8 +19,8 @@
 \citation{wendler2024llamas}
 \citation{kojima2024multilingual}
 \@writefile{toc}{\contentsline {title}{Language Organization in Multilingual LLMs through SAE Feature Suppression}{1}{chapter.1}\protected@file@percent }
-\@writefile{toc}{\authcount {1}}
-\@writefile{toc}{\contentsline {author}{Anonymous Author(s)}{1}{chapter.1}\protected@file@percent }
+\@writefile{toc}{\authcount {3}}
+\@writefile{toc}{\contentsline {author}{João Paulo Cavalcante Presa \and Willgnner Ferreira Santos \and Sávio Salvarino Teles de Oliveira}{1}{chapter.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1.1}\protected@file@percent }
 \newlabel{sec:intro}{{1}{1}{Introduction}{section.1.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Two architectures of multilingualism made visible through SAE feature-suppression. \textbf  {(a)}\nobreakspace  {}In Gemma-2-2B, Portuguese sits inside a Romance cluster; suppressing PT-specific features redirects generation to the nearest typological neighbor (Spanish or Catalan). \textbf  {(b)}\nobreakspace  {}In Llama-3.1-8B, non-English languages operate as overlays on an English substrate; suppressing PT-specific features strips the Portuguese overlay and reveals the English default.\relax }}{2}{figure.caption.2}\protected@file@percent }
@@ -39,15 +39,15 @@
 \citation{sasft2026}
 \citation{causal_lang_control2025}
 \citation{souza2020bertimbau}
-\citation{costa2022no}
-\citation{nanda2022transformerlens}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{3}{section.1.2}\protected@file@percent }
 \newlabel{sec:related}{{2}{3}{Related Work}{section.1.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Methodology}{3}{section.1.3}\protected@file@percent }
-\newlabel{sec:method}{{3}{3}{Methodology}{section.1.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Models and Data}{3}{subsection.1.3.1}\protected@file@percent }
+\citation{costa2022no}
+\citation{nanda2022transformerlens}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Base models and pretrained SAEs used in this study.\relax }}{4}{table.caption.3}\protected@file@percent }
 \newlabel{tab:models}{{1}{4}{Base models and pretrained SAEs used in this study.\relax }{table.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Methodology}{4}{section.1.3}\protected@file@percent }
+\newlabel{sec:method}{{3}{4}{Methodology}{section.1.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Models and Data}{4}{subsection.1.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Sparse Autoencoder Architectures}{4}{subsection.1.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{ReLU+L1.}{4}{section*.4}\protected@file@percent }
 \newlabel{eq:relu_loss}{{1}{4}{ReLU+L1}{equation.1.3.1}{}}
@@ -91,8 +91,8 @@
 \citation{gemma2_team2024}
 \citation{wendler2024llamas}
 \citation{grattafiori2024llama3}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }}{12}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:crossscale}{{3}{12}{Progressive linguistic differentiation in Gemma-2-9B: cosine similarity between Portuguese and Spanish/English mean activations decreases in deeper layers, while the number of PT-specific neurons increases. This gradient is absent in the 2B model.\relax }{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Progressive linguistic differentiation in Gemma-2-9B: masked cosine similarity between Portuguese and Spanish, French, and English mean activations decreases in deeper layers (left), while the number of PT-specific neurons increases (right). This gradient is absent in the 2B model.\relax }}{12}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:crossscale}{{3}{12}{Progressive linguistic differentiation in Gemma-2-9B: masked cosine similarity between Portuguese and Spanish, French, and English mean activations decreases in deeper layers (left), while the number of PT-specific neurons increases (right). This gradient is absent in the 2B model.\relax }{figure.caption.14}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{12}{section.1.5}\protected@file@percent }
 \newlabel{sec:discussion}{{5}{12}{Discussion}{section.1.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Cross-Family Language Organization}{12}{subsection.1.5.1}\protected@file@percent }
